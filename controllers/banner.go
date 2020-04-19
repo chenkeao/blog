@@ -47,6 +47,7 @@ func BannerDelete(ctx *gin.Context) {
 	}
 	err = banner.Delete()
 	if err != nil {
+		log.Println(err.Error())
 		res["message"] = err.Error()
 		return
 	}
