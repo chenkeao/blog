@@ -1,62 +1,79 @@
 {{define "admin/sidebar.html"}}
 <!-- Left side column. contains the logo and sidebar -->
-<aside class="main-sidebar">
-    <!-- sidebar: style can be found in sidebar.less -->
-    <section class="sidebar">
-        <!-- Sidebar user panel -->
-        <div class="user-panel">
-            <div class="pull-left image">
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <div class="sidebar">
+        <!-- Sidebar user panel (optional) -->
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+            <div class="image">
                 {{if gt (len .user.AvatarUrl) 0}}
                 <img src="{{.user.AvatarUrl}}" class="img-circle" alt="User Image">
                 {{else}}
-                <img src="/static/libs/AdminLTE/img/av.png" class="img-circle" alt="User Image">
+                <img src="/static/libs/AdminLTE/img/avatar.png" class="img-circle" alt="User Image">
                 {{end}}
             </div>
-            <div class="pull-left info">
-                <p>{{.user.Email}}</p>
-                <!--<a href="#"><i class="fa fa-circle text-success"></i> Online</a>-->
+            <div class="info">
+                <a href="#" class="d-block">{{.user.Email}}</a>
             </div>
         </div>
-        <!-- sidebar menu: : style can be found in sidebar.less -->
-        <ul class="sidebar-menu" data-widget="tree">
-            <li class="header">主菜单</li>
-            <li class="active">
-                <a href="/admin/index">
-                    <i class="fa fa-dashboard"></i> <span>控制台</span>
-                </a>
-            </li>
-            <li>
-                <a href="/admin/post">
-                    <i class="fa fa-list"></i> <span>博文管理</span>
-                </a>
-            </li>
-            <li>
-                <a href="/admin/page">
-                    <i class="fa fa-file"></i> <span>页面管理</span>
-                </a>
-            </li>
-            <li>
-                <a href="/admin/user">
-                    <i class="fa fa-user"></i> <span>用户管理</span>
-                </a>
-            </li>
-            <li>
-                <a href="/admin/banner">
-                    <i class="fa fa-image"></i> <span>轮播管理</span>
-                </a>
-            </li>
-            <li>
-                <a href="/admin/subscriber">
-                    <i class="fa fa-user-plus"></i> <span>订阅管理</span>
-                </a>
-            </li>
-            <li>
-                <a href="/admin/link">
-                    <i class="fa fa-link"></i> <span>友情链接</span>
-                </a>
-            </li>
-        </ul>
-    </section>
+
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <li class="nav-item menu-open">
+                    <a href="/admin/index" class="nav-link">
+                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <p>
+                            控制台
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/admin/post" class="nav-link">
+                        <i class=" nav-icon fas fa-book"></i>
+                        <p>
+                            博文管理
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/admin/page" class="nav-link">
+                        <i class="nav-icon fas fa-pager"></i>
+                        <p>页面管理
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/admin/user" class="nav-link">
+                        <i class="nav-icon fas fa-user"></i>
+                        <p>用户管理
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/admin/banner" class="nav-link">
+                        <i class="nav-icon fas fa-image"></i>
+                        <p>轮播管理
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/admin/subscriber" class="nav-link">
+                        <i class="nav-icon fas fa-eye"></i>
+                        <p>订阅管理
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/admin/link" class="nav-link">
+                        <i class="nav-icon fas fa-link"></i>
+                        <p>友情链接
+                        </p>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <!-- /.sidebar-menu -->
+    </div>
     <!-- /.sidebar -->
 </aside>
 {{end}}

@@ -1,98 +1,93 @@
 {{define "admin/user.html"}}
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Wblog - User</title>
-        <!-- Tell the browser to be responsive to screen width -->
-        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-        <!-- Bootstrap 3.3.7 -->
-        <link rel="stylesheet" href="/static/libs/bootstrap/css/bootstrap.min.css">
-        <!-- Font Awesome -->
-        <link rel="stylesheet" href="/static/libs/font-awesome/css/font-awesome.min.css">
-        <!-- Ionicons -->
-        <link rel="stylesheet" href="/static/libs/Ionicons/css/ionicons.min.css">
-        <!-- DataTables -->
-        <link rel="stylesheet" href="/static/libs/datatables.net-bs/css/dataTables.bootstrap.min.css">
-        <!-- Theme style -->
-        <link rel="stylesheet" href="/static/libs/AdminLTE/css/AdminLTE.min.css">
-        <!-- AdminLTE Skins. Choose a skin from the css/skins
-             folder instead of downloading all of them to reduce the load. -->
-        <link rel="stylesheet" href="/static/libs/AdminLTE/css/skins/_all-skins.min.css">
+<!DOCTYPE html>
+<html>
 
-        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-        <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-        <![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Wblog - Post</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="/static/libs/admin-lte/plugins/fontawesome-free/css/all.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="/static/libs/admin-lte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet"
+        href="/static/libs/admin-lte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/static/libs/AdminLTE/css/adminlte.min.css">
+    <!-- Google Font: Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+</head>
 
-        <!-- Google Font -->
-        <link rel="stylesheet"
-              href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-    </head>
-    <body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
-
         {{template "admin/navbar.html" .}}
         {{template "admin/sidebar.html" .}}
-
-        <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
-            <section class="content-header">
-                <h4>
-                    用户管理
-                </h4>
-                <ol class="breadcrumb">
-                    <li><a href="/admin/index"><i class="fa fa-dashboard"></i> Home</a></li>
-                    <li class="active"><a href="#">用户管理</a></li>
-                </ol>
-            </section>
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1 class="m-0 text-dark">
+                                用户管理
+                            </h1>
+                        </div><!-- /.col -->
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="/admin/index">控制台</a></li>
+                                <li class="breadcrumb-item active">用户管理</li>
+                            </ol>
+                        </div><!-- /.col -->
+                    </div><!-- /.row -->
+                </div><!-- /.container-fluid -->
+            </div>
 
             <!-- Main content -->
             <section class="content">
                 <div class="row">
-                    <div class="col-xs-12">
-                        <div class="box">
-                            <!--<div class="box-header">
-                                <h3 class="box-title">Hover Data Table</h3>
+                    <div class="col-12">
+                        <div class="card">
+                            <!--<div class="card-header">
+                                <h3 class="card-title">Hover Data Table</h3>
                             </div>
-                            /.box-header -->
-                            <div class="box-body">
+                            /.card-header -->
+                            <div class="card-body">
                                 <table id="example2" class="table table-bordered table-hover">
                                     <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        {{/*<th>邮箱</th>*/}}
-                                        <th>管理员</th>
-                                        <th>github</th>
-                                        <th>注册时间</th>
-                                        <th>状态</th>
-                                    </tr>
+                                        <tr>
+                                            <th>ID</th>
+                                            {{/*<th>邮箱</th>*/}}
+                                            <th>管理员</th>
+                                            <th>github</th>
+                                            <th>注册时间</th>
+                                            <th>状态</th>
+                                        </tr>
                                     </thead>
                                     <tbody>
-                                    {{range .users}}
+                                        {{range .users}}
                                         <tr>
                                             <td>{{.ID}}</td>
                                             {{/* <td>{{.Email}}</td>*/}}
                                             <td>{{if .IsAdmin}}√{{else}}×{{end}}</td>
                                             <td><a href="https://github.com/{{.GithubLoginId}}"
-                                                   target="_blank">{{.GithubLoginId}}</a></td>
+                                                    target="_blank">{{.GithubLoginId}}</a></td>
                                             <td>{{dateFormat .CreatedAt "06-01-02 15:04"}}</td>
                                             <td>
                                                 {{if not .LockState}}
-                                                    <a href="javascript:void(0);" class="btn btn-danger btnlock"
-                                                       data-href="/admin/user/{{.ID}}/lock">锁定</a>
+                                                <a href="javascript:void(0);" class="btn btn-danger btnlock"
+                                                    data-href="/admin/user/{{.ID}}/lock">锁定</a>
                                                 {{else}}
-                                                    <a href="javascript:void(0);" class="btn btn-primary btnlock"
-                                                       data-href="/admin/user/{{.ID}}/lock">解除锁定</a>
+                                                <a href="javascript:void(0);" class="btn btn-primary btnlock"
+                                                    data-href="/admin/user/{{.ID}}/lock">解除锁定</a>
                                                 {{end}}
                                             </td>
                                         </tr>
-                                    {{end}}
-                                    </tfoot>
+                                        {{end}}
+                                        </tfoot>
                                 </table>
                             </div>
                             <!-- /.box-body -->
@@ -110,15 +105,19 @@
     </div>
     <!-- ./wrapper -->
 
-    <!-- jQuery 3 -->
+    <!-- jQuery -->
     <script src="/static/libs/jquery/jquery.min.js"></script>
-    <!-- Bootstrap 3.3.7 -->
-    <script src="/static/libs/bootstrap/js/bootstrap.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="/static/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- DataTables -->
-    <script src="/static/libs/datatables.net/js/jquery.dataTables.min.js"></script>
-    <script src="/static/libs/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <script src="/static/libs/admin-lte/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="/static/libs/admin-lte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="/static/libs/admin-lte/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="/static/libs/admin-lte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
     <!-- AdminLTE App -->
-    <script src="/static/libs/AdminLTE/js/adminlte.min.js"></script>
+    <script src="/static/libs/admin-lte/dist/js/adminlte.min.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="/static/libs/admin-lte/dist/js/demo.js"></script>
     <!-- page script -->
     <script>
         $(function () {
@@ -143,6 +142,7 @@
             });
         });
     </script>
-    </body>
-    </html>
+</body>
+
+</html>
 {{end}}
