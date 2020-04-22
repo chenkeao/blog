@@ -38,4 +38,7 @@ body {
     .number-cell {
         font-size: 1.25em;
     }
+    #grid-container{
+        margin-bottom: 20px;
+    }
 }

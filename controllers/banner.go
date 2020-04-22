@@ -71,8 +71,7 @@ func BannerNew(ctx *gin.Context) {
 		})
 		return
 	}
-	//path := RootPath()
-	path := "static//banner"
+	path := "static/banner"
 	err = os.MkdirAll(path, os.ModePerm)
 	if err != nil {
 		ctx.HTML(http.StatusOK, "errors/error.html", gin.H{
@@ -94,13 +93,3 @@ func BannerNew(ctx *gin.Context) {
 	}
 	ctx.Redirect(http.StatusMovedPermanently, "/admin/banner")
 }
-
-//func RootPath() string {
-//	s, err := exec.LookPath(os.Args[0])
-//	if err != nil {
-//		log.Panicln("发生错误", err.Error())
-//	}
-//	i := strings.LastIndex(s, "\\")
-//	path := s[0 : i+1]
-//	return path
-//}

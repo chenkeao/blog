@@ -27,7 +27,6 @@ import (
 )
 
 func main() {
-
 	configFilePath := flag.String("C", "conf/conf.yaml", "config file path")
 	logConfigPath := flag.String("L", "conf/seelog.xml", "log config file path")
 	flag.Parse()
@@ -197,7 +196,7 @@ func main() {
 	game := router.Group("game")
 	{
 		game.GET("/", controllers.Game2048)
-		game.GET("/save", controllers.GamerSave)
+		game.POST("/save", controllers.GamerSave)
 	}
 
 	router.Run(system.GetConfiguration().Addr)

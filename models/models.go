@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"html/template"
 	"strconv"
+	"strings"
 	"time"
 
 	"wblog/system"
@@ -66,7 +67,7 @@ type User struct {
 	Password      string    `gorm:"default:null"`              //密码
 	VerifyState   string    `gorm:"default:'0'"`               //邮箱验证状态
 	SecretKey     string    `gorm:"default:null"`              //密钥
-	OutTime       time.Time //过期时间
+	OutTime       time.Time `gorm:"default:2100-12-12 00:00:00"`
 	GithubLoginId string    `gorm:"unique_index;default:null"` // github唯一标识
 	GithubUrl     string    //github地址
 	IsAdmin       bool      //是否是管理员
@@ -584,6 +585,10 @@ func ListUsers() ([]*User, error) {
 func ListAllImages() ([]*BannerImage, error) {
 	var images []*BannerImage
 	err := DB.Find(&images).Error
+	//在windows中路径分隔符为反斜杠，此处替换，否则无法显示图片
+	for _, v := range images {
+		v.Path = strings.ReplaceAll(v.Path, "\\", "/")
+	}
 	return images, err
 }
 
@@ -598,26 +603,13 @@ func SaveImage(desc, url, path string) error {
 	return err
 }
 
-func SaveGamer(user string, score int) error {
-	var gamer GameBoard
-	err := DB.Where("email = ?", user).First(&gamer).Error
-	if err != nil {
-		if score > gamer.Score {
-			DB.Model(&gamer).Update("score", score)
-		}
-	} else {
-		err = DB.Create(GameBoard{
-			BaseModel: BaseModel{},
-			Email:     user,
-			Score:     score,
-		}).Error
-	}
-	return err
+func (g *GameBoard) Create() error {
+	return DB.Create(g).Error
 }
 
 func GetAllGamer() ([]*GameBoard, error) {
 	var gamers []*GameBoard
-	err := DB.Find(&gamers).Order("score").Error
+	err := DB.Order("score desc").Find(&gamers).Error
 	return gamers, err
 
 }

@@ -28,14 +28,14 @@ $(document).ready(function () {
     }
     prepareForMobile();
     newGame();
-
-    // document.body.addEventListener('touchmove', function(e) {
-    //     //阻止默认的处理方式(阻止下拉滑动的效果)
-    //     e.preventDefault();
-    // }, {
-    //     //passive 参数不能省略，用来兼容ios和android
-    //     passive: false
-    // });
+    let gridContainer = document.getElementById("grid-container")
+    gridContainer.addEventListener('touchmove', function (e) {
+        //阻止默认的处理方式(阻止下拉滑动的效果)
+        e.preventDefault();
+    }, {
+        //passive 参数不能省略，用来兼容ios和android
+        passive: false
+    });
 
     let EventUtil = {
         addHandler: function (element, type, handler) {
@@ -63,7 +63,7 @@ $(document).ready(function () {
          * @param leftCallback      向左滑动的监听回调（若不关心，可以不传，或传false）
          */
         listenTouchDirection: function (target, upCallback, rightCallback, downCallback,
-            leftCallback) {
+                                        leftCallback) {
             this.addHandler(target, "touchstart", handleTouchEvent);
             this.addHandler(target, "touchend", handleTouchEvent);
             this.addHandler(target, "touchmove", handleTouchEvent);
@@ -98,9 +98,8 @@ $(document).ready(function () {
         }
     }
 
-    $gridContainer = $("#grid-container");
 
-    EventUtil.listenTouchDirection($gridContainer, function () {
+    EventUtil.listenTouchDirection(gridContainer, function () {
         if (moveUp()) {
             setTimeout("generateOneNumber()", 210);
             setTimeout("isGameOver()", 300);
@@ -123,7 +122,9 @@ $(document).ready(function () {
     });
 
     $("#saveScore").click(function () {
-        $.post("/game/save", { score: score })
+        $.post("/game/save", {score: score}, function (data) {
+            window.location.reload()
+        })
     })
 
 });

@@ -8,11 +8,6 @@ body {
     padding-top: 70px;
     /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
 }
-
-footer {
-    margin: 50px 0;
-}
-
 #mCarousel {
     height: 500px;
     overflow: hidden;
@@ -20,6 +15,7 @@ footer {
 }
 
 #mCarousel img {
+    height: 500px;
     width: 100%;
 }
 
@@ -27,9 +23,21 @@ footer {
     flex-direction: column;
 }
 
-@media(max-width: 450px) {
+.blog-footer {
+    padding: 2.5rem 0;
+    color: #999;
+    text-align: center;
+    background-color: #f9f9f9;
+    border-top: .05rem solid #e5e5e5;
+}
+
+@media (max-width: 450px) {
     #mCarousel {
         height: 200px;
         overflow: hidden;
+    }
+
+    #mCarousel img {
+        height: 200px;
     }
 }

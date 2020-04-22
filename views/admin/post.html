@@ -1,22 +1,22 @@
 {{define "admin/post.html"}}
-<!DOCTYPE html>
-<html>
+    <!DOCTYPE html>
+    <html>
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Wblog - Post</title>
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <link rel="stylesheet" href="/static/libs/admin-lte/plugins/fontawesome-free/css/all.min.css">
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    <link rel="stylesheet" href="/static/libs/admin-lte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet"
-        href="/static/libs/admin-lte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
-    <link rel="stylesheet" href="/static/libs/admin-lte/dist/css/adminlte.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-</head>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Wblog - Post</title>
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+        <link rel="stylesheet" href="/static/libs/admin-lte/plugins/fontawesome-free/css/all.min.css">
+        <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+        <link rel="stylesheet" href="/static/libs/admin-lte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+        <link rel="stylesheet"
+              href="/static/libs/admin-lte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+        <link rel="stylesheet" href="/static/libs/admin-lte/dist/css/adminlte.min.css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    </head>
 
-<body class="hold-transition skin-blue sidebar-mini">
+    <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
 
         {{template "admin/navbar.html" .}}
@@ -57,33 +57,37 @@
                                 <!-- /.card-header -->
                                 <div class="card-body">
                                     <table id="example2" class="table table-bordered table-hover dataTable dtr-inline"
-                                        role="grid" aria-describedby="example2_info">
+                                           role="grid" aria-describedby="example2_info">
                                         <thead>
-                                            <tr role="row">
-                                                <th class="sorting_asc" tabindex="0" aria-controls="example2"
-                                                    rowspan="1" colspan="1" aria-sort="ascending"
-                                                    aria-label="Rendering engine: activate to sort column descending">ID
-                                                </th>
-                                                <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1"
-                                                    colspan="1" aria-label="Browser: activate to sort column ascending">
-                                                    标题</th>
-                                                <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1"
-                                                    colspan="1"
-                                                    aria-label="Platform(s): activate to sort column ascending">公开</th>
-                                                <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1"
-                                                    colspan="1"
-                                                    aria-label="Engine version: activate to sort column ascending">创建时间
-                                                </th>
-                                                <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1"
-                                                    colspan="1"
-                                                    aria-label="CSS grade: activate to sort column ascending">更新时间</th>
-                                                <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1"
-                                                    colspan="1"
-                                                    aria-label="CSS grade: activate to sort column ascending">操作</th>
-                                            </tr>
+                                        <tr role="row">
+                                            <th class="sorting_asc" tabindex="0" aria-controls="example2"
+                                                rowspan="1" colspan="1" aria-sort="ascending"
+                                                aria-label="Rendering engine: activate to sort column descending">ID
+                                            </th>
+                                            <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1"
+                                                colspan="1" aria-label="Browser: activate to sort column ascending">
+                                                标题
+                                            </th>
+                                            <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1"
+                                                colspan="1"
+                                                aria-label="Platform(s): activate to sort column ascending">公开
+                                            </th>
+                                            <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1"
+                                                colspan="1"
+                                                aria-label="Engine version: activate to sort column ascending">创建时间
+                                            </th>
+                                            <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1"
+                                                colspan="1"
+                                                aria-label="CSS grade: activate to sort column ascending">更新时间
+                                            </th>
+                                            <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1"
+                                                colspan="1"
+                                                aria-label="CSS grade: activate to sort column ascending">操作
+                                            </th>
+                                        </tr>
                                         </thead>
                                         <tbody>
-                                            {{range .posts}}
+                                        {{range .posts}}
                                             <tr role="row">
                                                 <td>{{.ID}}</td>
                                                 <td><a href="/post/{{.ID}}" target="_blank">{{.Title}}</a></td>
@@ -94,13 +98,13 @@
                                                 <td>{{dateFormat .CreatedAt "06-01-02 15:04"}}</td>
                                                 <td>{{dateFormat .UpdatedAt "06-01-02 15:04"}}</td>
                                                 <td><a href="/admin/post/{{.ID}}/edit" target="_blank"
-                                                        class="btn btn-primary">编辑</a>
+                                                       class="btn btn-primary">编辑</a>
                                                     <a href="#" class="btn btn-danger"
-                                                        data-href="/admin/post/{{.ID}}/delete" data-toggle="modal"
-                                                        data-target="#confirm-delete">删除</a>
+                                                       data-href="/admin/post/{{.ID}}/delete" data-toggle="modal"
+                                                       data-target="#confirm-delete">删除</a>
                                                 </td>
                                             </tr>
-                                            {{end}}
+                                        {{end}}
                                         </tbody>
                                     </table>
                                 </div>
@@ -114,22 +118,19 @@
             </div>
 
 
-
-
-
             <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-                aria-hidden="true">
+                 aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            请确认
+                            <h3 class="modal-title">请确认</h3>
                         </div>
                         <div class="modal-body">
                             确认删除该记录吗？
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                            <a class="btn btn-danger btn-ok">删除记录</a>
+                            <a class="btn btn-danger btn-ok text-light">删除记录</a>
                         </div>
                     </div>
                 </div>
@@ -177,7 +178,7 @@
                     });
                 });
             </script>
-</body>
+    </body>
 
-</html>
+    </html>
 {{end}}

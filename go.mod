@@ -3,7 +3,6 @@ module wblog
 go 1.14
 
 require (
-	github.com/alimoeeny/gooauth2 v0.0.0-20140214171402-62c620a8c7eb // indirect
 	github.com/cihub/seelog v0.0.0-20170130134532-f561c5e57575
 	github.com/claudiu/gocron v0.0.0-20151103142354-980c96bf412b
 	github.com/dchest/captcha v0.0.0-20170622155422-6a29415a8364
@@ -16,9 +15,8 @@ require (
 	github.com/jinzhu/gorm v1.9.12
 	github.com/kr/pretty v0.2.0 // indirect
 	github.com/microcosm-cc/bluemonday v1.0.2
+	github.com/nfnt/resize v0.0.0-20180221191011-83c6a9932646
 	github.com/pkg/errors v0.9.1
-	github.com/qiniu/api.v7 v7.2.5+incompatible // indirect
 	github.com/russross/blackfriday v1.5.2
 	github.com/snluu/uuid v0.0.0-20130306162636-1dd34a9ad6c0
-	github.com/wangsongyan/wblog v0.0.0-20190212134921-875ef9a6cda0 // indirect
 )
