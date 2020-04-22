@@ -196,7 +196,7 @@ func main() {
 	game := router.Group("game")
 	{
 		game.GET("/", controllers.Game2048)
-		game.POST("/save", controllers.GamerSave)
+		game.POST("/save", AuthRequired(), controllers.GamerSave)
 	}
 
 	router.Run(system.GetConfiguration().Addr)
@@ -273,22 +273,6 @@ func AdminScopeRequired() gin.HandlerFunc {
 	}
 }
 
-func checkLoginStatus() gin.HandlerFunc {
-	return func(context *gin.Context) {
-		log.Println("开始检测")
-		if user, _ := context.Get(controllers.CONTEXT_USER_KEY); user != nil {
-			log.Println("获取到用户信息")
-			if _, ok := user.(*models.User); ok {
-				log.Println("用户信息正确，开始跳转到主界面。。。")
-				context.Abort()
-				context.Redirect(http.StatusMovedPermanently, "/")
-			}
-		} else {
-			log.Println("未检测到用户登录，进入登陆界面")
-			context.Next()
-		}
-	}
-}
 
 //AuthRequired 中间件
 func AuthRequired() gin.HandlerFunc {

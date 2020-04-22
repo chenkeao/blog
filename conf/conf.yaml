@@ -1,8 +1,8 @@
 debug_mode: true #当前模式：debug or release
 signup_enabled: true
-smtp_username:
-smtp_password:
-smtp_host:
+smtp_username: 
+smtp_password: 
+smtp_host: 
 session_secret: wblog
 domain:
 public: static
