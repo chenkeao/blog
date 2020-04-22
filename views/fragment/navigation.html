@@ -1,11 +1,18 @@
 {{define "navigation.html"}}
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
-        <a class="navbar-brand" href="#">Wblog</a>
+        <a class="navbar-brand" href="#"><b>Blog</b></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="/index">博文<span class="sr-only"></span></a>
+                    <a class="nav-link" href="/index">博文</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/game">小游戏</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/page/6">关于</a>
@@ -21,22 +28,21 @@
                         退出登录
                     </a>
                 </li>
+            </ul>
+
+            <ul class="nav navbar-nav pull-right">
                 <li class="nav-item">
                     <a href="/admin/profile" class="navbar-brand">
                         {{if gt (len .user.AvatarUrl) 0}}
-                        <img src="{{.user.AvatarUrl}}" style="width: 30px;" alt="User Image"
-                            class="rounded-circle nav-img">
+                        <img src="{{.user.AvatarUrl}}" width="30" height="30" class="rounded-circle d-inline-block align-top image-cir" alt=""> 
                         {{else}}
-                        <img src="/static/libs/AdminLTE/img/av.png" style="width: 25px;" class="rounded-circle"
-                            alt="User Image">
-                        {{end}}
+                    <img src="/static/libs/admin-lte/dist/img/avatar.png" width="30" height="30" class="rounded-circle d-inline-block align-top" > {{end}}
                     </a>
                 </li>
                 {{else}}
-                <li><a href="/signin">登录</a></li>
+                <li><a href="/signin" class="nav-link">登录</a></li>
                 {{end}}
             </ul>
-
         </div>
     </div>
 </nav>

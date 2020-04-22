@@ -1,33 +1,56 @@
 {{define "game/index.html"}}
-    <!DOCTYPE html>
-    <html lang="zh">
+<!DOCTYPE html>
+<html lang="zh">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport"
-              content="width=device-width,height=device-height,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>2048</title>
-        <link rel="stylesheet" type="text/css" href="../../static/game/master.css"/>
-        <script src="/static/libs/jquery/jquery.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="/static/game/support.js" type="text/javascript" charset="utf-8"></script>
-        <script src="/static/game/animation.js" type="text/javascript" charset="utf-8"></script>
-        <script src="/static/game/main.js" type="text/javascript" charset="utf-8"></script>
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width,height=device-height,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>2048</title>
+    <link rel="stylesheet" href="/static/libs/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../../static/game/master.css" />
+    <script src="/static/libs/jquery/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/static/game/support.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/static/game/animation.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/static/game/main.js" type="text/javascript" charset="utf-8"></script>
+</head>
 
-    <body>
+<body>
 
-    <header>
-        <h1>2048小游戏</h1>
-        <a href="javascript:newGame();" id="newGameButton">新游戏</a>
-        <a href="javascript:goBack();" id="goBack">返回上一步<span id="times"></span></a>
-        <p>score:<span id="score">0</span></p>
-    </header>
+    {{template "navigation.html" .}}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8">
+                <h1>2048小游戏</h1>
+                <div class="btn-group" role="group" aria-label="Button group">
+                    <a id="newGameButton" class="btn bg-light" href="javascript:newGame();" role="button">新游戏</a>
+                    <a id="goBack" class="btn bg-light" href="javascript:goBack();" role="button">返回上一步：<span
+                            id="times"></span></a>
+                    <a class="btn bg-light" role="button" href="#"> 成绩：<span id="score"></span>
+                    </a>
+                    <a id="saveScore" class="btn bg-light" role="button" href="">保存成绩</a>
+                </div>
+                <div id="grid-container">
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <h2 style="margin-bottom: 20px;">高分榜</h2>
+                <ul class="list-group">
+                    {{range $k,$v := .gamers}}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        {{$v.Email}}
+                        <span class="badge badge-primary badge-pill">{{$v.Score}}</span>
+                    </li>
+                    {{end}}
+                </ul>
 
-    <div id="grid-container">
-
+            </div>
+        </div>
     </div>
-    </body>
+    <script src="/static/libs/jquery/jquery.min.js"></script>
+    <script src="/static/libs/bootstrap/js/bootstrap.min.js"></script>
+</body>
 
-    </html>
+</html>
 {{end}}

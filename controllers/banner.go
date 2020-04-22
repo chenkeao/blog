@@ -8,8 +8,9 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/gin-gonic/gin"
 	"wblog/models"
+
+	"github.com/gin-gonic/gin"
 )
 
 func BannerIndex(ctx *gin.Context) {
@@ -22,7 +23,7 @@ func BannerIndex(ctx *gin.Context) {
 	ctx.HTML(http.StatusOK, "admin/banner.html", gin.H{
 		"images":   images,
 		"user":     user,
-			"comments": models.MustListUnreadComment(),
+		"comments": models.MustListUnreadComment(),
 	})
 }
 
@@ -40,7 +41,7 @@ func BannerDelete(ctx *gin.Context) {
 	}
 	banner := &models.BannerImage{}
 	banner.ID = uint(pid)
-	err = models.DB.Where("id = ?",pid).Find(&banner).Error
+	err = models.DB.Where("id = ?", pid).Find(&banner).Error
 	if err != nil {
 		res["message"] = err.Error()
 		return

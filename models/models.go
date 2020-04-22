@@ -82,6 +82,12 @@ type BannerImage struct {
 	Url         string
 }
 
+type GameBoard struct {
+	BaseModel
+	Email string
+	Score int
+}
+
 // table comments
 type Comment struct {
 	BaseModel
@@ -154,7 +160,7 @@ func InitDB() (*gorm.DB, error) {
 		DB = db
 		db.LogMode(true)
 		DB.Set("gorm:table_options", "ENGINE=InnoDB CHARSET=utf8")
-		db.AutoMigrate(&Page{}, &Post{}, &Tag{}, &PostTag{}, &User{}, &Comment{}, &Subscriber{}, &Link{}, &SmmsFile{}, &BannerImage{})
+		db.AutoMigrate(&Page{}, &Post{}, &Tag{}, &PostTag{}, &User{}, &Comment{}, &Subscriber{}, &Link{}, &SmmsFile{}, &BannerImage{}, &GameBoard{})
 		db.Model(&PostTag{}).AddUniqueIndex("uk_post_tag", "post_id", "tag_id")
 		return db, err
 	}
@@ -590,6 +596,30 @@ func SaveImage(desc, url, path string) error {
 	}
 	err := DB.Create(image).Error
 	return err
+}
+
+func SaveGamer(user string, score int) error {
+	var gamer GameBoard
+	err := DB.Where("email = ?", user).First(&gamer).Error
+	if err != nil {
+		if score > gamer.Score {
+			DB.Model(&gamer).Update("score", score)
+		}
+	} else {
+		err = DB.Create(GameBoard{
+			BaseModel: BaseModel{},
+			Email:     user,
+			Score:     score,
+		}).Error
+	}
+	return err
+}
+
+func GetAllGamer() ([]*GameBoard, error) {
+	var gamers []*GameBoard
+	err := DB.Find(&gamers).Order("score").Error
+	return gamers, err
+
 }
 
 func (banner BannerImage) Delete() error {

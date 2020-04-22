@@ -6,11 +6,12 @@ import (
 
 	"math"
 
+	"wblog/models"
+	"wblog/system"
+
 	"github.com/gin-gonic/gin"
 	"github.com/microcosm-cc/bluemonday"
 	"github.com/russross/blackfriday"
-	"wblog/models"
-	"wblog/system"
 )
 
 func IndexGet(c *gin.Context) {

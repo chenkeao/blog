@@ -29,13 +29,13 @@ $(document).ready(function () {
     prepareForMobile();
     newGame();
 
-    document.body.addEventListener('touchmove', function (e) {
-        //阻止默认的处理方式(阻止下拉滑动的效果)
-        e.preventDefault();
-    }, {
-        //passive 参数不能省略，用来兼容ios和android
-        passive: false
-    });
+    // document.body.addEventListener('touchmove', function(e) {
+    //     //阻止默认的处理方式(阻止下拉滑动的效果)
+    //     e.preventDefault();
+    // }, {
+    //     //passive 参数不能省略，用来兼容ios和android
+    //     passive: false
+    // });
 
     let EventUtil = {
         addHandler: function (element, type, handler) {
@@ -57,13 +57,12 @@ $(document).ready(function () {
         /**
          * 监听触摸的方向
          * @param target            要绑定监听的目标元素
-         * @param isPreventDefault  是否屏蔽掉触摸滑动的默认行为（例如页面的上下滚动，缩放等）
          * @param upCallback        向上滑动的监听回调（若不关心，可以不传，或传false）
          * @param rightCallback     向右滑动的监听回调（若不关心，可以不传，或传false）
          * @param downCallback      向下滑动的监听回调（若不关心，可以不传，或传false）
          * @param leftCallback      向左滑动的监听回调（若不关心，可以不传，或传false）
          */
-        listenTouchDirection: function (target, _isPreventDefault, upCallback, rightCallback, downCallback,
+        listenTouchDirection: function (target, upCallback, rightCallback, downCallback,
             leftCallback) {
             this.addHandler(target, "touchstart", handleTouchEvent);
             this.addHandler(target, "touchend", handleTouchEvent);
@@ -99,7 +98,9 @@ $(document).ready(function () {
         }
     }
 
-    EventUtil.listenTouchDirection(document, true, function () {
+    $gridContainer = $("#grid-container");
+
+    EventUtil.listenTouchDirection($gridContainer, function () {
         if (moveUp()) {
             setTimeout("generateOneNumber()", 210);
             setTimeout("isGameOver()", 300);
@@ -120,12 +121,19 @@ $(document).ready(function () {
             setTimeout("isGameOver()", 300);
         }
     });
+
+    $("#saveScore").click(function () {
+        $.post("/game/save", { score: score })
+    })
+
 });
 
 
 function prepareForMobile() {
-    $("#grid-container").css("width", gridContainerWidth - 2 * cellSpace);
-    $("#grid-container").css("height", gridContainerWidth - 2 * cellSpace);
+    // $("#grid-container").css("width", gridContainerWidth - 2 * cellSpace);
+    // $("#grid-container").css("height", gridContainerWidth - 2 * cellSpace);
+    $("#grid-container").css("width", gridContainerWidth);
+    $("#grid-container").css("height", gridContainerWidth);
     $("#grid-container").css("padding", cellSpace);
     $("#grid-container").css("border-radius", 0.02 * gridContainerWidth);
 

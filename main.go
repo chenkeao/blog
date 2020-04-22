@@ -2,10 +2,11 @@ package main
 
 import (
 	"flag"
-	"github.com/gin-contrib/sessions/cookie"
 	"html/template"
 	"log"
 	"net/http"
+
+	"github.com/gin-contrib/sessions/cookie"
 
 	"github.com/gin-contrib/sessions"
 
@@ -17,11 +18,12 @@ import (
 	"github.com/cihub/seelog"
 	_ "github.com/claudiu/gocron"
 
-	"github.com/gin-gonic/gin"
 	"wblog/controllers"
 	"wblog/helpers"
 	"wblog/models"
 	"wblog/system"
+
+	"github.com/gin-gonic/gin"
 )
 
 func main() {
@@ -190,6 +192,12 @@ func main() {
 		// mail
 		authorized.POST("/new_mail", controllers.SendMail)
 		authorized.POST("/new_batchmail", controllers.SendBatchMail)
+	}
+
+	game := router.Group("game")
+	{
+		game.GET("/", controllers.Game2048)
+		game.GET("/save", controllers.GamerSave)
 	}
 
 	router.Run(system.GetConfiguration().Addr)

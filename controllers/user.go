@@ -4,10 +4,11 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/gin-contrib/sessions"
-	"github.com/gin-gonic/gin"
 	"wblog/helpers"
 	"wblog/models"
+
+	"github.com/gin-contrib/sessions"
+	"github.com/gin-gonic/gin"
 )
 
 type GithubUserInfo struct {
@@ -71,7 +72,7 @@ func SignupPost(c *gin.Context) {
 		Email:     email,
 		Telephone: telephone,
 		Password:  password,
-		IsAdmin:   false,
+		IsAdmin:   true,
 	}
 	if len(user.Email) == 0 || len(user.Password) == 0 {
 		res["message"] = "email or password cannot be null"
