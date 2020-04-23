@@ -112,7 +112,7 @@
                     <div class="card-deck">
                         <div class="card bg-light mb-3">
                             <div class="card-body">
-                                <h5><i class="zi zi_tags"></i></span> 文章标签</h5>
+                                <h5>文章标签</h5>
                             </div>
                             <ul class="list-group list-group-flush">
                                 {{range $tagkey,$tagvalue:=.tags}} {{if isEven $tagkey}}
@@ -134,7 +134,7 @@
                         <div class="card bg-light mb-3">
 
                             <div class="card-body">
-                                <h5><i class="zi zi_book"></i></span> 文章归档</h5>
+                                <h5>文章归档</h5>
                             </div>
                             <ul class="list-group list-group-flush">
                                 {{range $archivekey,$archivevalue:=.archives}} {{if isEven $archivekey}}
@@ -156,7 +156,7 @@
                         <div class="card bg-light mb-3">
 
                             <div class="card-body">
-                                <h5><i class="zi zi_bookopen"></i></span> 阅读最多</h5>
+                                <h5>阅读最多</h5>
 
                             </div>
                             <ul class="list-group list-group-flush">
@@ -169,7 +169,7 @@
                         <div class="card bg-light mb-3">
 
                             <div class="card-body">
-                                <h5><i class="zi zi_comment"></i></span> 评论最多</h5>
+                                <h5>评论最多</h5>
 
                             </div>
                             <ul class="list-group list-group-flush">
@@ -183,7 +183,7 @@
                         <div class="card bg-light mb-3">
 
                             <div class="card-body">
-                                <h5><i class="zi zi_link"></i></span> 友情链接</h5>
+                                <h5>友情链接</h5>
                             </div>
                             <ul class="list-group list-group-flush">
                                 {{range .links}}
