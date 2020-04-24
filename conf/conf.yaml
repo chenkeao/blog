@@ -3,7 +3,7 @@ signup_enabled: true
 smtp_username: 
 smtp_password: 
 smtp_host: 
-session_secret: wblog
+session_secret: blog
 domain:
 public: static
 addr: :8090
@@ -11,7 +11,7 @@ backup_key:
 # dsn: wblog.db?_loc=Asia/Shanghai
 db_user: root
 db_password: 056613
-db_name: wblog_db
+db_name: blog_db
 db_host: localhost
 db_port: 3306
 notify_emails:
