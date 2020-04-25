@@ -8,9 +8,7 @@ import (
 	"io/ioutil"
 	"mime/multipart"
 	"net/http"
-
 	"wblog/models"
-
 	"wblog/system"
 )
 
@@ -38,21 +36,21 @@ func (u SmmsUploader) upload(file multipart.File, fileHeader *multipart.FileHead
 		resp      *http.Response
 		bodyBytes []byte
 		ret       SmmsRet
-		bodyBuf   = &bytes.Buffer{}
+		body      = &bytes.Buffer{}
 		smmsFile  models.SmmsFile
 	)
-	bodyWriter := multipart.NewWriter(bodyBuf)
-	fileWriter, err := bodyWriter.CreateFormFile("smfile", fileHeader.Filename)
+	writer := multipart.NewWriter(body)
+	part, err := writer.CreateFormFile("smfile", fileHeader.Filename)
 	if err != nil {
 		return
 	}
-	_, err = io.Copy(fileWriter, file)
+	_, err = io.Copy(part, file)
 	if err != nil {
 		return
 	}
-	bodyWriter.Close()
+	_ = writer.Close()
 
-	resp, err = http.Post(system.GetConfiguration().SmmsFileServer, bodyWriter.FormDataContentType(), bodyBuf)
+	resp, err = http.Post(system.GetConfiguration().SmmsFileServer, writer.FormDataContentType(), body)
 	if err != nil {
 		return
 	}

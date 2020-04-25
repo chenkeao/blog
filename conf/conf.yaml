@@ -16,4 +16,4 @@ db_host: localhost
 db_port: 3306
 notify_emails:
 page_size: 5
-smms_fileserver: https://sm.ms/api/upload
+smms_fileserver: https://sm.ms/api/v2/upload

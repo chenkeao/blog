@@ -17,7 +17,6 @@ import (
 	"github.com/russross/blackfriday"
 )
 
-// I don't need soft delete,so I use customized BaseModel instead gorm.Model
 type BaseModel struct {
 	ID        uint `gorm:"primary_key"`
 	CreatedAt time.Time
@@ -154,16 +153,16 @@ func InitDB() (*gorm.DB, error) {
 		dbName     = system.GetConfiguration().DbName
 		dbHost     = system.GetConfiguration().DbHost
 		dbPort     = system.GetConfiguration().DbPort
+		err        error
 	)
-	db, err := gorm.Open("mysql", dbUser+":"+dbPassword+"@tcp("+dbHost+":"+dbPort+
+	DB, err = gorm.Open("mysql", dbUser+":"+dbPassword+"@tcp("+dbHost+":"+dbPort+
 		")/"+dbName+"?charset=utf8mb4&parseTime=True&loc=Local")
 	if err == nil {
-		DB = db
-		db.LogMode(true)
-		DB.Set("gorm:table_options", "ENGINE=InnoDB CHARSET=utf8")
-		db.AutoMigrate(&Page{}, &Post{}, &Tag{}, &PostTag{}, &User{}, &Comment{}, &Subscriber{}, &Link{}, &SmmsFile{}, &BannerImage{}, &GameBoard{})
-		db.Model(&PostTag{}).AddUniqueIndex("uk_post_tag", "post_id", "tag_id")
-		return db, err
+		DB.LogMode(true)
+		DB = DB.Set("gorm:table_options", "ENGINE=InnoDB CHARSET=utf8mb4 auto_increment=1")
+		DB.AutoMigrate(&Page{}, &Post{}, &Tag{}, &PostTag{}, &User{}, &Comment{}, &Subscriber{}, &Link{}, &SmmsFile{}, &BannerImage{}, &GameBoard{})
+		DB.Model(&PostTag{}).AddUniqueIndex("uk_post_tag", "post_id", "tag_id")
+		return DB, err
 	}
 	return nil, err
 }
@@ -611,7 +610,6 @@ func GetAllGamer() ([]*GameBoard, error) {
 	var gamers []*GameBoard
 	err := DB.Order("score desc").Find(&gamers).Error
 	return gamers, err
-
 }
 
 func (banner BannerImage) Delete() error {

@@ -1,28 +1,24 @@
 {{define "admin/banner.html"}}
-<!DOCTYPE html>
-<html>
+    <!DOCTYPE html>
+    <html>
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Wblog - Post</title>
-    <!-- Tell the browser to be responsive to screen width -->
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="/static/libs/admin-lte/plugins/fontawesome-free/css/all.min.css">
-    <!-- Ionicons -->
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    <!-- DataTables -->
-    <link rel="stylesheet" href="/static/libs/admin-lte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet"
-        href="/static/libs/admin-lte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="/static/libs/admin-lte/dist/css/adminlte.min.css">
-    <!-- Google Font: Source Sans Pro -->
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-</head>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Wblog - Post</title>
+        <!-- Tell the browser to be responsive to screen width -->
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="/static/libs/admin-lte/plugins/fontawesome-free/css/all.min.css">
+        <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+        <link rel="stylesheet" href="/static/libs/admin-lte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+        <link rel="stylesheet"
+              href="/static/libs/admin-lte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+        <link rel="stylesheet" href="/static/libs/admin-lte/dist/css/adminlte.min.css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    </head>
 
-<body class="hold-transition skin-blue sidebar-mini">
+    <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
 
         {{template "admin/navbar.html" .}}
@@ -44,7 +40,7 @@
                             </h1>
 
                             <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
-                                aria-labelledby="myModalLabel" aria-hidden="true">
+                                 aria-labelledby="myModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -58,24 +54,25 @@
                                         <div class="modal-body">
 
                                             <form role="form" action="/admin/new_banner" method="post"
-                                                enctype="multipart/form-data">
+                                                  enctype="multipart/form-data">
                                                 <div class="form-group">
                                                     <label for="inputfile">选择图片</label>
-                                                    <input type="file" class="form-control-file" id="image" name="image">
+                                                    <input type="file" class="form-control-file" id="image"
+                                                           name="image">
                                                 </div>
                                                 <div class="form-group">
                                                     <label>图片描述：</label>
                                                     <input type="text" name="desc" class="form-control"
-                                                        placeholder="请输入描述">
+                                                           placeholder="请输入描述">
                                                 </div>
                                                 <div class="form-group">
                                                     <label>跳转地址：</label>
                                                     <input type="url" name="url" class="form-control"
-                                                        placeholder="请输入链接">
+                                                           placeholder="请输入链接">
                                                 </div>
                                                 <div class="form-group">
                                                     <button type="button" class="btn btn-default"
-                                                        data-dismiss="modal">关闭
+                                                            data-dismiss="modal">关闭
                                                     </button>
                                                     <input type="submit" class="btn btn-primary" name="提交">
                                                 </div>
@@ -97,91 +94,71 @@
             </div>
 
             <!-- Main content -->
-            <section class="content">
-                <div class="row">
-                    <div class="col-xs-12">
-                        <div class="box">
-                            <div class="box-body">
-                                <!-- <table class="table table-bordered row mx-0 text-center">
-                                    <thead class="w-100">
-                                        <tr class="row mx-0">
-                                            <th class="col-md-1">ID</th>
-                                            <th class="col-md-3">图片预览</th>
-                                            <th class="col-md-4">图片描述</th>
-                                            <th class="col-md-3">添加时间</th>
-                                            <th class="col-md-1">操作</th>
+            <div class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <table id="example2" class="table table-bordered table-hover dataTable dtr-inline"
+                                           role="grid" aria-describedby="example2_info">
+                                        <thead>
+                                        <tr role="row">
+                                            <th class="sorting_asc" tabindex="0" aria-controls="example2"
+                                                rowspan="1" colspan="1" aria-sort="ascending"
+                                                aria-label="Rendering engine: activate to sort column descending">ID
+                                            </th>
+                                            <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1"
+                                                colspan="1" aria-label="Browser: activate to sort column ascending">
+                                                图片
+                                            </th>
+                                            <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1"
+                                                colspan="1"
+                                                aria-label="Platform(s): activate to sort column ascending">描述
+                                            </th>
+                                            <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1"
+                                                colspan="1"
+                                                aria-label="Engine version: activate to sort column ascending">创建时间
+                                            </th>
+                                            <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1"
+                                                colspan="1"
+                                                aria-label="CSS grade: activate to sort column ascending">链接
+                                            </th>
+                                            <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1"
+                                                colspan="1"
+                                                aria-label="CSS grade: activate to sort column ascending">操作
+                                            </th>
                                         </tr>
-                                    </thead>
-                                    <tbody class="w-100">
+                                        </thead>
+                                        <tbody>
                                         {{range .images}}
-                                        <tr class="row mx-0">
-                                            <td class="col-md-1">{{.ID}}</td>
-                                            <td class="col-md-3"><img src="/{{.Path}}" alt="" style="width: 50%"></td>
-                                            <td class="col-md-4">{{if .Description}}
-                                                {{.Description}}
-                                                {{else}}
-                                                暂无描述
-                                                {{end}}</td>
-                                            <td class="col-md-3">{{dateFormat .CreatedAt "06-01-02 15:04"}}</td>
-                                            <td class="col-md-1"><a href="#" class="btn btn-danger"
-                                                    data-href="/admin/banner/{{.ID}}/delete" data-toggle="modal"
-                                                    data-target="#confirm-delete">删除</a></td>
-                                        </tr>
+                                            <tr role="row">
+                                                <td>{{.ID}}</td>
+                                                <td><img src="/{{.Path}}" alt="图片" style="width: 100px"/></td>
+                                                <td>
+                                                    {{.Description}}
+                                                </td>
+                                                <td>{{dateFormat .CreatedAt "06-01-02 15:04"}}</td>
+                                                <td>{{.Url}}</td>
+                                                <td><a href="#" class="btn btn-danger"
+                                                       data-href="" data-toggle="modal"
+                                                       data-target="#confirm-delete">删除</a>
+                                                </td>
+                                            </tr>
                                         {{end}}
-                                    </tbody>
-                                </table> -->
-
-                                <!-- Second table with widths classes -->
-                                <table class="table table-bordered row mx-0 text-center table-bordered table-hover">
-                                    <thead class="w-100 thead-light">
-                                        <tr class="row mx-0">
-                                            <th class="col-1">ID</th>
-                                            <th class="col-3">图片预览</th>
-                                            <th class="col-4">图片描述</th>
-                                            <th class="col-2">添加时间</th>
-                                            <th class="col-2">操作</th>
-                                        </tr>
-                                    </thead>
-
-
-                                    <tbody class="w-100">
-                                        {{range .images}}
-                                        <tr class="row mx-0">
-                                            <td class="col-1">{{.ID}}</td>
-                                            <td class="col-3"><img src="/{{.Path}}" alt="" style="width: 50%"></td>
-                                            <td class="col-4">{{if .Description}}
-                                                {{.Description}}
-                                                {{else}}
-                                                暂无描述
-                                                {{end}}</td>
-                                            <td class="col-2">{{dateFormat .CreatedAt "06-01-02 15:04"}}</td>
-                                            <td class="col-2"><a href="#" class="btn btn-danger"
-                                                    data-href="/admin/banner/{{.ID}}/delete" data-toggle="modal"
-                                                    data-target="#confirm-delete">删除</a></td>
-                                        </tr>
-                                        {{end}}
-                                    </tbody>
-                                </table>
-                                <!-- End second table -->
-
-
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
-                            <!-- /.box-body -->
                         </div>
-                        <!-- /.box -->
                     </div>
-                    <!-- /.col -->
                 </div>
-                <!-- /.row -->
-            </section>
-            <!-- /.content -->
+            </div>
         </div>
-        <!-- /.content-wrapper -->
-
     </div>
 
     <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-        aria-hidden="true">
+         aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -197,30 +174,37 @@
             </div>
         </div>
     </div>
-    <!-- ./wrapper -->
 
-
-    <!-- jQuery 3 -->
     <script src="/static/libs/jquery/jquery.min.js"></script>
-    <!-- Bootstrap 3.3.7 -->
-    <script src="/static/libs/bootstrap/js/bootstrap.min.js"></script>
-    <!-- DataTables -->
-    <script src="/static/libs/datatables.net/js/jquery.dataTables.min.js"></script>
-    <script src="/static/libs/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <script src="/static/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/libs/admin-lte/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="/static/libs/admin-lte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="/static/libs/admin-lte/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="/static/libs/admin-lte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
     <script src="/static/libs/admin-lte/dist/js/adminlte.min.js"></script>
-    <!-- page script -->
+    <script src="/static/libs/admin-lte/dist/js/demo.js"></script>
     <script>
+        $(function () {
+            $('#example2').DataTable({
+                'paging': true,
+                'lengthChange': true,
+                'searching': true,
+                'ordering': true,
+                'info': true,
+                'autoWidth': true
+            });
+        });
+
 
         $('#confirm-delete').on('show.bs.modal', function (e) {
             $(this).find('.btn-ok').click(function () {
                 $.post($(e.relatedTarget).data('href'), {}, function (reuslt) {
                     window.location.href = window.location.href;
                 }, 'json');
-
             });
         });
     </script>
-</body>
+    </body>
 
-</html>
+    </html>
 {{end}}

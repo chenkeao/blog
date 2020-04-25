@@ -76,6 +76,7 @@ func PostCreate(c *gin.Context) {
 func PostEdit(c *gin.Context) {
 	id := c.Param("id")
 	post, err := models.GetPostById(id)
+	user, _ := c.Get(CONTEXT_USER_KEY)
 	if err != nil {
 		Handle404(c)
 		return
@@ -83,6 +84,7 @@ func PostEdit(c *gin.Context) {
 	post.Tags, _ = models.ListTagByPostId(id)
 	c.HTML(http.StatusOK, "post/modify.html", gin.H{
 		"post": post,
+		"user": user,
 	})
 }
 

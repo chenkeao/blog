@@ -75,13 +75,13 @@ func SignupPost(c *gin.Context) {
 		IsAdmin:   true,
 	}
 	if len(user.Email) == 0 || len(user.Password) == 0 {
-		res["message"] = "email or password cannot be null"
+		res["message"] = "邮箱和密码不能为空"
 		return
 	}
 	user.Password = helpers.Md5(user.Email + user.Password)
 	err = user.Insert()
 	if err != nil {
-		res["message"] = "email already exists"
+		res["message"] = "邮箱已经注册"
 		return
 	}
 	res["succeed"] = true
@@ -125,130 +125,6 @@ func SigninPost(c *gin.Context) {
 	c.Redirect(http.StatusMovedPermanently, "/")
 	//}
 }
-
-//
-//func Oauth2Callback(c *gin.Context) {
-//	var (
-//		userInfo *GithubUserInfo
-//		user     *models.User
-//	)
-//	code := c.Query("code")
-//	state := c.Query("state")
-//
-//	// validate state
-//	session := sessions.Default(c)
-//	if len(state) == 0 || state != session.Get(SESSION_GITHUB_STATE) {
-//		c.Abort()
-//		return
-//	}
-//	// remove state from session
-//	session.Delete(SESSION_GITHUB_STATE)
-//	session.Save()
-//
-//	// exchange accesstoken by code
-//	token, err := exchangeTokenByCode(code)
-//	if err != nil {
-//		seelog.Error(err)
-//		c.Redirect(http.StatusMovedPermanently, "/signin")
-//		return
-//	}
-//
-//	//get github userinfo by accesstoken
-//	userInfo, err = getGithubUserInfoByAccessToken(token)
-//	if err != nil {
-//		seelog.Error(err)
-//		c.Redirect(http.StatusMovedPermanently, "/signin")
-//		return
-//	}
-//
-//	sessionUser, exists := c.Get(CONTEXT_USER_KEY)
-//	if exists { // 已登录
-//		user, _ = sessionUser.(*models.User)
-//		_, err1 := models.IsGithubIdExists(userInfo.Login, user.ID)
-//		if err1 != nil { // 未绑定
-//			if user.IsAdmin {
-//				user.GithubLoginId = userInfo.Login
-//			}
-//			user.AvatarUrl = userInfo.AvatarURL
-//			user.GithubUrl = userInfo.HTMLURL
-//			err = user.UpdateGithubUserInfo()
-//		} else {
-//			err = errors.New("this github loginId has bound another account.")
-//		}
-//	} else {
-//		user = &models.User{
-//			GithubLoginId: userInfo.Login,
-//			AvatarUrl:     userInfo.AvatarURL,
-//			GithubUrl:     userInfo.HTMLURL,
-//		}
-//		user, err = user.FirstOrCreate()
-//		if err == nil {
-//			if user.LockState {
-//				err = errors.New("Your account have been locked.")
-//				HandleMessage(c, "Your account have been locked.")
-//				return
-//			}
-//		}
-//	}
-//
-//	if err == nil {
-//		s := sessions.Default(c)
-//		s.Clear()
-//		s.Set(SESSION_KEY, user.ID)
-//		s.Save()
-//		if user.IsAdmin {
-//			c.Redirect(http.StatusMovedPermanently, "/admin/index")
-//		} else {
-//			c.Redirect(http.StatusMovedPermanently, "/")
-//		}
-//		return
-//	}
-//}
-//
-//func exchangeTokenByCode(code string) (accessToken string, err error) {
-//	var (
-//		transport *oauth.Transport
-//		token     *oauth.Token
-//	)
-//	transport = &oauth.Transport{Config: &oauth.Config{
-//		ClientId:     system.GetConfiguration().GithubClientId,
-//		ClientSecret: system.GetConfiguration().GithubClientSecret,
-//		RedirectURL:  system.GetConfiguration().GithubRedirectURL,
-//		TokenURL:     system.GetConfiguration().GithubTokenUrl,
-//		Scope:        system.GetConfiguration().GithubScope,
-//	}}
-//	token, err = transport.Exchange(code)
-//	if err != nil {
-//		return
-//	}
-//	accessToken = token.AccessToken
-//	// cache token
-//	tokenCache := oauth.CacheFile("./request.token")
-//	if err := tokenCache.PutToken(token); err != nil {
-//		seelog.Error(err)
-//	}
-//	return
-//}
-//
-//func getGithubUserInfoByAccessToken(token string) (*GithubUserInfo, error) {
-//	var (
-//		resp *http.Response
-//		body []byte
-//		err  error
-//	)
-//	resp, err = http.Get(fmt.Sprintf("https://api.github.com/user?access_token=%s", token))
-//	if err != nil {
-//		return nil, err
-//	}
-//	defer resp.Body.Close()
-//	body, err = ioutil.ReadAll(resp.Body)
-//	if err != nil {
-//		return nil, err
-//	}
-//	var userInfo GithubUserInfo
-//	err = json.Unmarshal(body, &userInfo)
-//	return &userInfo, err
-//}
 
 func ProfileGet(c *gin.Context) {
 	sessionUser, exists := c.Get(CONTEXT_USER_KEY)

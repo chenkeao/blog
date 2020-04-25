@@ -1,26 +1,27 @@
 {{define "admin/page_end.html"}}
-</div>
+    </div>
 
-<script src="/static/libs/jquery/jquery.min.js"></script>
-<script src="/static/libs/bootstrap/js/bootstrap.min.js"></script>
-<script src="/static/libs/admin-lte/dist/js/adminlte.min.js"></script>
-<script src="/static/libs/admin-lte/dist/js/demo.js"></script>
+    <script src="/static/libs/jquery/jquery.min.js"></script>
+    <script src="/static/libs/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/static/libs/admin-lte/dist/js/adminlte.min.js"></script>
+    <script src="/static/libs/admin-lte/dist/js/demo.js"></script>
 
-<script type="text/javascript">
-    $(document).ready(function () {
-        $(".readcomment").on("click",function(e){
-            $.post($(e.target).data("href"),{},function(result){
-                window.location.href = $(e.target).data("redirect");
-            },'json');
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".readcomment").on("click", function (e) {
+                $.post($(e.target).data("href"), {}, function (result) {
+                    window.location.href = $(e.target).data("redirect");
+                }, 'json');
+            });
+
+            $(".readall").on("click", function (e) {
+                $.post("/admin/read_all", {}, function (result) {
+                    window.location.href = window.location.href;
+                }, "json");
+            });
+
         });
-
-        $(".readall").on("click",function (e) {
-            $.post("/admin/read_all",{},function(result){
-                window.location.href = window.location.href;
-            },"json");
-        });
-    });
-</script>
-</body>
-</html>
+    </script>
+    </body>
+    </html>
 {{end}}
