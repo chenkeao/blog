@@ -35,7 +35,7 @@
                     <div class="row mb-2">
                         <div class="col-sm-6">
                             <h1 class="m-0 text-dark">
-                                博文管理
+                                友链管理
                                 <a class="btn btn-primary" href="javascript:void(0);" data-href="/admin/new_link"
                                     data-toggle="modal" data-target="#add-dialog">新增</a>
                             </h1>
@@ -172,11 +172,11 @@
         $(function () {
             $('#example2').DataTable({
                 'paging': true,
-                'lengthChange': false,
-                'searching': false,
+                'lengthChange': true,
+                'searching': true,
                 'ordering': true,
                 'info': true,
-                'autoWidth': false
+                'autoWidth': true
             });
         });
 

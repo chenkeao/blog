@@ -1,11 +1,11 @@
 //数据地图
-let board = new Array();
+let board = [];
 //成绩
 let score = 0;
 //用来计算每获得1k分增加一次返回机会
 let score_tmp = 0;
 //修复多个div同时合并的bug
-let hasConflicted = new Array();
+let hasConflicted = [];
 //可以返回的次数
 let timesForReturn;
 

@@ -36,10 +36,13 @@
                             {{else}}
                             <div class="carousel-item">
                                 {{end}}
-                                <img src={{$v.Path}}>
+                                {{if $v.Url}}
+                                    <a href="{{$v.Url}}" target="_blank"><img src={{$v.Path}}></a>
+                                {{else}}
+                                    <img src={{$v.Path}}>
+                                {{end}}
                                 <div class="carousel-caption d-none d-md-block">
-                                    <!-- <h3>Title</h3> -->
-                                    <p>{{$v.Description}}</p>
+                                    <h3>{{$v.Description}}</h3>
                                 </div>
                             </div>
                             {{end}}
@@ -58,7 +61,7 @@
             </div>
             <div class="row">
                 <div class="col-md-8">
-                    <section class="article">
+                    <div class="article">
                         {{range $postkey,$postvalue:=.posts}}
                             <div class="articleInfo">
                             <span><a class="articleTitle" href="/post/{{$postvalue.ID}}">
@@ -87,7 +90,7 @@
                                 </tr>
                             </div>
                             <hr> {{end}}
-                    </section>
+                    </div>
 
                     {{if le .pageIndex .totalPage}}
                         <ul class="pagination justify-content-center">

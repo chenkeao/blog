@@ -5,13 +5,16 @@ import (
 	"crypto/cipher"
 	"crypto/md5"
 	"crypto/rand"
+	"crypto/tls"
 	"encoding/hex"
 	"io"
 	"net/smtp"
 	"os"
 	"strings"
 	"time"
+	"wblog/system"
 
+	"github.com/jordan-wright/email"
 	"github.com/pkg/errors"
 	"github.com/snluu/uuid"
 )
@@ -40,18 +43,24 @@ func GetCurrentTime() time.Time {
 	return time.Now().In(loc)
 }
 
-func SendToMail(user, password, host, to, subject, body, mailtype string) error {
+func SendToMail(user, password, host, to, subject, body string) error {
+	ssl := system.GetConfiguration().SslEnable
 	hp := strings.Split(host, ":")
 	auth := smtp.PlainAuth("", user, password, hp[0])
-	var content_type string
-	if mailtype == "html" {
-		content_type = "Content-Type: text/" + mailtype + "; charset=UTF-8"
-	} else {
-		content_type = "Content-Type: text/plain" + "; charset=UTF-8"
-	}
-	msg := []byte("To: " + to + "\r\nFrom: " + user + "\r\nSubject: " + subject + "\r\n" + content_type + "\r\n\r\n" + body)
 	send_to := strings.Split(to, ";")
-	return smtp.SendMail(host, auth, user, send_to, msg)
+	msg := []byte(body)
+
+	e := email.NewEmail()
+	e.From = user
+	e.To = send_to
+	e.Subject = subject
+	e.Text = msg
+
+	if ssl {
+		return e.SendWithTLS(host, auth, &tls.Config{ServerName: hp[0]})
+	} else {
+		return e.Send(host, auth)
+	}
 }
 
 func PathExists(path string) (bool, error) {

@@ -130,18 +130,23 @@
                                             </th>
                                         </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody class="text-center">
                                         {{range .images}}
                                             <tr role="row">
                                                 <td>{{.ID}}</td>
-                                                <td><img src="/{{.Path}}" alt="图片" style="width: 100px"/></td>
+                                                <td><img src="/{{.Path}}" alt="图片" class="img-thumbnail"
+                                                         style="width: 100px"/></td>
                                                 <td>
-                                                    {{.Description}}
+                                                    {{if .Description}}
+                                                        {{.Description}}
+                                                    {{else}}
+                                                        暂无描述
+                                                    {{end}}
                                                 </td>
                                                 <td>{{dateFormat .CreatedAt "06-01-02 15:04"}}</td>
-                                                <td>{{.Url}}</td>
+                                                <td><a href="{{.Url}}" target="_blank">{{.Url}}</a></td>
                                                 <td><a href="#" class="btn btn-danger"
-                                                       data-href="" data-toggle="modal"
+                                                       data-href="/admin/banner/{{.ID}}/delete" data-toggle="modal"
                                                        data-target="#confirm-delete">删除</a>
                                                 </td>
                                             </tr>

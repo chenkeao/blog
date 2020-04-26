@@ -13,9 +13,9 @@ require (
 	github.com/go-yaml/yaml v2.1.0+incompatible
 	github.com/gorilla/feeds v1.1.1
 	github.com/jinzhu/gorm v1.9.12
+	github.com/jordan-wright/email v0.0.0-20200322182553-8eef2508c362
 	github.com/kr/pretty v0.2.0 // indirect
 	github.com/microcosm-cc/bluemonday v1.0.2
-	github.com/nfnt/resize v0.0.0-20180221191011-83c6a9932646
 	github.com/pkg/errors v0.9.1
 	github.com/russross/blackfriday v1.5.2
 	github.com/snluu/uuid v0.0.0-20130306162636-1dd34a9ad6c0

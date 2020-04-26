@@ -32,7 +32,7 @@ func Subscribe(c *gin.Context) {
 				if err == nil {
 					count, _ := models.CountSubscriber()
 					c.HTML(http.StatusOK, "other/subscribe.html", gin.H{
-						"message": "subscribe succeed.",
+						"message": "订阅成功！请检查邮箱中的邮件进行激活",
 						"total":   count,
 					})
 					return
@@ -41,10 +41,10 @@ func Subscribe(c *gin.Context) {
 				subscriber.SubscribeState = true
 				err = subscriber.Update()
 				if err == nil {
-					err = errors.New("subscribe succeed.")
+					err = errors.New("订阅成功！请检查邮箱中的邮件进行激活")
 				}
 			} else {
-				err = errors.New("mail have already actived or have unactive mail in your mailbox.")
+				err = errors.New("邮件已经激活或您的邮箱中有无效的邮件。")
 			}
 		} else {
 			subscriber := &models.Subscriber{
@@ -56,7 +56,7 @@ func Subscribe(c *gin.Context) {
 				if err == nil {
 					count, _ := models.CountSubscriber()
 					c.HTML(http.StatusOK, "other/subscribe.html", gin.H{
-						"message": "subscribe succeed.",
+						"message": "订阅成功！请检查邮箱中的邮件进行激活",
 						"total":   count,
 					})
 					return
@@ -64,7 +64,7 @@ func Subscribe(c *gin.Context) {
 			}
 		}
 	} else {
-		err = errors.New("empty mail address.")
+		err = errors.New("邮箱地址不能为空")
 	}
 	count, _ := models.CountSubscriber()
 	c.HTML(http.StatusOK, "other/subscribe.html", gin.H{
@@ -80,7 +80,7 @@ func sendActiveEmail(subscriber *models.Subscriber) (err error) {
 	subscriber.SecretKey = uuid
 	signature := helpers.Md5(subscriber.Email + uuid + subscriber.OutTime.Format("20060102150405"))
 	subscriber.Signature = signature
-	err = sendMail(subscriber.Email, "[Wblog]邮箱验证", fmt.Sprintf("%s/active?sid=%s", system.GetConfiguration().Domain, signature))
+	err = sendMail(subscriber.Email, "[Wblog]邮箱验证", fmt.Sprintf("请点击下方链接完成认证：\n %s/active?sid=%s", system.GetConfiguration().Domain, signature))
 	if err != nil {
 		return
 	}

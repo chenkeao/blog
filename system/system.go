@@ -14,9 +14,10 @@ type Configuration struct {
 	DbHost         string `yaml:"db_host"`
 	DbPort         string `yaml:"db_port"`
 	SignupEnabled  bool   `yaml:"signup_enabled"` // signup enabled or not
-	SmtpUsername   string `yaml:"smtp_username"`  // username
-	SmtpPassword   string `yaml:"smtp_password"`  //password
+	SmtpUsername   string `yaml:"smtp_username"`  //email username
+	SmtpPassword   string `yaml:"smtp_password"`  //email password for smtp
 	SmtpHost       string `yaml:"smtp_host"`      //host
+	SslEnable      bool   `yaml:"ssl_enable"`     //ssl enable or not
 	SessionSecret  string `yaml:"session_secret"` //session_secret
 	Domain         string `yaml:"domain"`         //domain
 	Public         string `yaml:"public"`         //public

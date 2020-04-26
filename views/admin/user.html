@@ -62,7 +62,7 @@
                                             <th>ID</th>
                                             {{/*<th>邮箱</th>*/}}
                                             <th>管理员</th>
-                                            <th>github</th>
+                                            <th>邮箱地址</th>
                                             <th>注册时间</th>
                                             <th>状态</th>
                                         </tr>
@@ -71,10 +71,8 @@
                                         {{range .users}}
                                         <tr>
                                             <td>{{.ID}}</td>
-                                            {{/* <td>{{.Email}}</td>*/}}
                                             <td>{{if .IsAdmin}}√{{else}}×{{end}}</td>
-                                            <td><a href="https://github.com/{{.GithubLoginId}}"
-                                                    target="_blank">{{.GithubLoginId}}</a></td>
+                                            <td>{{.Email}}</td>
                                             <td>{{dateFormat .CreatedAt "06-01-02 15:04"}}</td>
                                             <td>
                                                 {{if not .LockState}}
@@ -122,11 +120,11 @@
             $('#example1').DataTable()
             $('#example2').DataTable({
                 'paging': true,
-                'lengthChange': false,
-                'searching': false,
+                'lengthChange': true,
+                'searching': true,
                 'ordering': true,
                 'info': true,
-                'autoWidth': false
+                'autoWidth': true
             })
         })
 
