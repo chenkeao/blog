@@ -77,3 +77,7 @@ func AdminIndex(c *gin.Context) {
 		"comments":     models.MustListUnreadComment(),
 	})
 }
+
+func AboutGet(ctx *gin.Context) {
+	ctx.HTML(http.StatusOK, "about.html", nil)
+}

@@ -7,8 +7,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        {{template "meta.html"}}
-
+        <link rel="shortcut icon" href="/static/favicon.ico">
         <title>Post - {{.post.Title}}</title>
 
         <!-- Bootstrap Core CSS -->
@@ -143,8 +142,8 @@
                     {{range .post.Comments}}
                         <div class="media">
                             <a class="pull-left" href="{{.GithubUrl}}" target="_blank">
-                                {{if .AvatarUrl}}
-                                    <img class="user-image" src="{{.AvatarUrl}}" alt="">
+                                {{if .AvatarPath}}
+                                    <img class="user-image" src="{{.AvatarPath}}" alt="">
                                 {{else}}
                                     <img class="user-image" src="http://placehold.it/64x64" alt="">
                                 {{end}}

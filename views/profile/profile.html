@@ -1,0 +1,72 @@
+{{define "profile.html"}}
+    <!DOCTYPE html>
+    <html lang="zh-CN" class="h-100">
+
+    <head>
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Blog</title>
+        <link rel="stylesheet" href="/static/libs/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/static/css/blog-home.css">
+        <link rel="stylesheet" href="/static/css/base.css">
+        <link rel="shortcut icon" href="/static/favicon.ico">
+
+    </head>
+
+
+    <body class="h-100">
+
+    {{template "navigation.html" .}}
+
+    <div class="container h-100">
+        <div class="row h-100 justify-content-center bg-light">
+            <div class="col-6 align-self-center">
+                <div class="text-center">
+                    <img style="width: 100px"
+                         src="{{if gt (len .user.AvatarPath) 0}}{{.user.AvatarPath}}{{else}}/static/libs/admin-lte/dist/img/avatar.png{{end}}"
+                         class="rounded-circle" alt="User Image">
+                    <p class="text-info">{{.user.NickName}}</p>
+                </div>
+                <form role="form" action="/profile" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="exampleFormControlFile1">选择头像</label>
+                        <input type="file" class="form-control-file" id="exampleFormControlFile1" name="avatar">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">邮箱地址</label>
+                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                               placeholder="{{.user.Email}}" name="email" readonly>
+                        <small id="emailHelp" class="form-text text-muted">您无法修改邮箱地址</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">设置昵称</label>
+                        <input type="text" class="form-control" id="exampleInputPassword1"
+                               placeholder="{{if .user.NickName}}{{.user.NickName}}
+                        {{else}}请输入昵称{{end}}"
+                               name="nickName">
+                    </div>
+                    <button type="submit" class="btn btn-primary">提交</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    {{template "footer.html"}}
+
+    <script src="/static/libs/jquery/jquery.min.js"></script>
+    <script src="/static/libs/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        function unbindGithub() {
+            $.post("/admin/profile/github/unbind", {}, function (result) {
+                if (result.succeed) {
+                    window.location.reload(true)
+                }
+            }, 'json');
+        }
+    </script>
+    </body>
+    </html>
+
+{{end}}

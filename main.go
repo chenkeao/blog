@@ -79,29 +79,17 @@ func main() {
 	router.GET("/", controllers.IndexGet)
 	router.GET("/index", controllers.IndexGet)
 	router.GET("/rss", controllers.RssGet)
+	router.GET("/about",controllers.AboutGet)
 
 	if system.GetConfiguration().SignupEnabled {
 		router.GET("/signup", controllers.SignupGet)
 		router.POST("/signup", controllers.SignupPost)
 	}
-	// user signin and logout
 
-	//router.GET("/signin", checkLoginStatus(), controllers.Login)
 	router.GET("/signin", controllers.Login)
-
-	//router.GET("/signin", func(context *gin.Context) {
-	//	context.JSON(http.StatusOK, gin.H{
-	//		"msg": "ok",
-	//	})
-	//})
-
 	router.POST("/signin", controllers.SigninPost)
 	router.GET("/logout", controllers.LogoutGet)
-	//调用外部链接登录，暂时不用
-	//router.GET("/oauth2callback", controllers.Oauth2Callback)
-	//router.GET("/auth/:authType", controllers.AuthGet)
 
-	// captcha
 	router.GET("/captcha", controllers.CaptchaGet)
 
 	visitor := router.Group("/visitor")
@@ -123,6 +111,11 @@ func main() {
 	router.GET("/archives/:year/:month", controllers.ArchiveGet)
 
 	router.GET("/link/:id", controllers.LinkGet)
+
+	router.GET("/profile", controllers.ProfileGet)
+	router.POST("/profile", controllers.ProfileUpdate)
+	router.POST("/profile/email/bind", controllers.BindEmail)
+	router.POST("/profile/email/unbind", controllers.UnbindEmail)
 
 	authorized := router.Group("/admin")
 	authorized.Use(AdminScopeRequired())
@@ -164,12 +157,6 @@ func main() {
 		authorized.POST("/new_banner", controllers.BannerNew)
 		authorized.POST("/banner/:id/delete", controllers.BannerDelete)
 
-		// profile
-		authorized.GET("/profile", controllers.ProfileGet)
-		authorized.POST("/profile", controllers.ProfileUpdate)
-		authorized.POST("/profile/email/bind", controllers.BindEmail)
-		authorized.POST("/profile/email/unbind", controllers.UnbindEmail)
-		authorized.POST("/profile/github/unbind", controllers.UnbindGithub)
 		// subscriber
 		authorized.GET("/subscriber", controllers.SubscriberIndex)
 		authorized.POST("/subscriber", controllers.SubscriberPost)

@@ -70,7 +70,7 @@ type User struct {
 	GithubLoginId string    `gorm:"unique_index;default:null"` // github唯一标识
 	GithubUrl     string    //github地址
 	IsAdmin       bool      //是否是管理员
-	AvatarUrl     string    // 头像链接
+	AvatarPath     string    // 头像链接
 	NickName      string    // 昵称
 	LockState     bool      `gorm:"default:'0'"` //锁定状态
 }
@@ -97,7 +97,7 @@ type Comment struct {
 	ReadState bool   `gorm:"default:'0'"` // 阅读状态
 	//Replies []*Comment // 评论
 	NickName  string `gorm:"-"`
-	AvatarUrl string `gorm:"-"`
+	AvatarPath string `gorm:"-"`
 	GithubUrl string `gorm:"-"`
 }
 
@@ -543,8 +543,8 @@ func GetUser(id interface{}) (*User, error) {
 	return &user, err
 }
 
-func (user *User) UpdateProfile(avatarUrl, nickName string) error {
-	return DB.Model(user).Update(User{AvatarUrl: avatarUrl, NickName: nickName}).Error
+func (user *User) UpdateProfile(AvatarPath, nickName string) error {
+	return DB.Model(user).Update(User{AvatarPath: AvatarPath, NickName: nickName}).Error
 }
 
 func (user *User) UpdateEmail(email string) error {
@@ -564,7 +564,7 @@ func (user *User) UpdateGithubUserInfo() error {
 	}
 	return DB.Model(user).Update(map[string]interface{}{
 		"github_login_id": githubLoginId,
-		"avatar_url":      user.AvatarUrl,
+		"avatar_url":      user.AvatarPath,
 		"github_url":      user.GithubUrl,
 	}).Error
 }

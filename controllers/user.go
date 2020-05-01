@@ -2,7 +2,10 @@ package controllers
 
 import (
 	"net/http"
+	"os"
+	"path/filepath"
 	"strconv"
+	"time"
 
 	"wblog/helpers"
 	"wblog/models"
@@ -12,7 +15,7 @@ import (
 )
 
 type GithubUserInfo struct {
-	AvatarURL         string      `json:"avatar_url"`
+	AvatarPath        string      `json:"avatar_url"`
 	Bio               interface{} `json:"bio"`
 	Blog              string      `json:"blog"`
 	Company           interface{} `json:"company"`
@@ -117,46 +120,61 @@ func SigninPost(c *gin.Context) {
 	s.Clear()
 	s.Set(SESSION_KEY, user.ID)
 	s.Save()
-	//if user.IsAdmin {
-	//	//c.Redirect(http.StatusMovedPermanently, "/admin/index")
-	//	c.Redirect(http.StatusMovedPermanently, "/index")
-	//} else {
 	//重定向到首页
 	c.Redirect(http.StatusMovedPermanently, "/")
-	//}
 }
 
 func ProfileGet(c *gin.Context) {
 	sessionUser, exists := c.Get(CONTEXT_USER_KEY)
 	if exists {
-		c.HTML(http.StatusOK, "admin/profile.html", gin.H{
+		c.HTML(http.StatusOK, "profile.html", gin.H{
 			"user":     sessionUser,
 			"comments": models.MustListUnreadComment(),
+		})
+	} else {
+		c.HTML(http.StatusOK, "errors/error.html", gin.H{
+			"message": "尚未登录",
 		})
 	}
 }
 
 func ProfileUpdate(c *gin.Context) {
-	var (
-		err error
-		res = gin.H{}
-	)
-	defer writeJSON(c, res)
-	avatarUrl := c.PostForm("avatarUrl")
+	avatar, err := c.FormFile("avatar")
 	nickName := c.PostForm("nickName")
 	sessionUser, _ := c.Get(CONTEXT_USER_KEY)
 	user, ok := sessionUser.(*models.User)
 	if !ok {
-		res["message"] = "server interval error"
+		c.HTML(http.StatusOK, "/error.html", gin.H{
+			"message": "个人信息更新失败",
+		})
 		return
 	}
-	err = user.UpdateProfile(avatarUrl, nickName)
+	path := "static/avatar"
+	path = filepath.Join(path, user.Email)
+	err = os.MkdirAll(path, os.ModePerm)
 	if err != nil {
-		res["message"] = err.Error()
+		c.HTML(http.StatusOK, "errors/error.html", gin.H{
+			"message": err.Error(),
+		})
 		return
 	}
-	res["succeed"] = true
-	res["user"] = models.User{AvatarUrl: avatarUrl, NickName: nickName}
+	fileName := strconv.FormatInt(time.Now().Unix(), 10) + avatar.Filename
+	path = filepath.Join(path, fileName)
+	err = c.SaveUploadedFile(avatar, path)
+	if err != nil {
+		c.HTML(http.StatusOK, "errors/error.html", gin.H{
+			"message": err.Error(),
+		})
+		return
+	}
+	err = user.UpdateProfile(path, nickName)
+	if err != nil {
+		c.HTML(http.StatusOK, "errors/error.html", gin.H{
+			"message": err.Error(),
+		})
+		return
+	}
+	c.Redirect(http.StatusMovedPermanently, "/profile")
 }
 
 func BindEmail(c *gin.Context) {
@@ -206,31 +224,6 @@ func UnbindEmail(c *gin.Context) {
 		return
 	}
 	err = user.UpdateEmail("")
-	if err != nil {
-		res["message"] = err.Error()
-		return
-	}
-	res["succeed"] = true
-}
-
-func UnbindGithub(c *gin.Context) {
-	var (
-		err error
-		res = gin.H{}
-	)
-	defer writeJSON(c, res)
-	sessionUser, _ := c.Get(CONTEXT_USER_KEY)
-	user, ok := sessionUser.(*models.User)
-	if !ok {
-		res["message"] = "server interval error"
-		return
-	}
-	if user.GithubLoginId == "" {
-		res["message"] = "github haven't bound"
-		return
-	}
-	user.GithubLoginId = ""
-	err = user.UpdateGithubUserInfo()
 	if err != nil {
 		res["message"] = err.Error()
 		return

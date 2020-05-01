@@ -35,9 +35,9 @@
 
                 <ul class="nav navbar-nav pull-right">
                     <li class="nav-item">
-                        <a href="/admin/profile" class="navbar-brand">
-                            {{if gt (len .user.AvatarUrl) 0}}
-                                <img src="{{.user.AvatarUrl}}" width="30" height="30"
+                        <a href="/profile" class="navbar-brand">
+                            {{if .user.AvatarPath}}
+                                <img src="/{{.user.AvatarPath}}" width="30" height="30"
                                      class="rounded-circle d-inline-block align-top image-cir" alt="">
                             {{else}}
                                 <img src="/static/libs/admin-lte/dist/img/avatar.png" width="30" height="30"
