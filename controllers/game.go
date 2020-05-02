@@ -26,7 +26,6 @@ func Game2048(ctx *gin.Context) {
 
 func GamerSave(ctx *gin.Context) {
 	log.Println("开始保存")
-
 	s := ctx.PostForm("score")
 	score, err := strconv.Atoi(s)
 	if err != nil {
@@ -53,7 +52,7 @@ func GamerSave(ctx *gin.Context) {
 		//表示查询成功但没有结果
 	} else if err == gorm.ErrRecordNotFound {
 		log.Println("数据库无此用户，新建成绩")
-		gamer = &models.GameBoard{Score: score, Email: user.Email}
+		gamer = &models.GameBoard{Score: score, Email: user.Email, NickName: user.NickName}
 		_ = gamer.Create()
 	}
 	ctx.JSON(http.StatusOK, nil)

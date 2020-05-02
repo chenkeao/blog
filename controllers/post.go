@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"log"
 	"net/http"
 	"strconv"
 	"strings"
@@ -18,8 +19,14 @@ func PostGet(c *gin.Context) {
 	}
 	post.View++
 	post.UpdateView()
-	post.Tags, _ = models.ListTagByPostId(id)
-	post.Comments, _ = models.ListCommentByPostID(id)
+	post.Tags, err = models.ListTagByPostId(id)
+	if err != nil {
+		log.Panic(err)
+	}
+	post.Comments, err = models.ListCommentByPostID(id)
+	if err != nil {
+		log.Panic(err)
+	}
 	user, _ := c.Get(CONTEXT_USER_KEY)
 	c.HTML(http.StatusOK, "post/display.html", gin.H{
 		"post": post,

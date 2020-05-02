@@ -15,7 +15,7 @@ import (
 )
 
 type GithubUserInfo struct {
-	AvatarPath        string      `json:"avatar_url"`
+	AvatarPath        string      `json:"avatar_path"`
 	Bio               interface{} `json:"bio"`
 	Blog              string      `json:"blog"`
 	Company           interface{} `json:"company"`
@@ -149,30 +149,34 @@ func ProfileUpdate(c *gin.Context) {
 		})
 		return
 	}
-	path := "static/avatar"
-	path = filepath.Join(path, user.Email)
-	err = os.MkdirAll(path, os.ModePerm)
-	if err != nil {
-		c.HTML(http.StatusOK, "errors/error.html", gin.H{
-			"message": err.Error(),
-		})
-		return
-	}
-	fileName := strconv.FormatInt(time.Now().Unix(), 10) + avatar.Filename
-	path = filepath.Join(path, fileName)
-	err = c.SaveUploadedFile(avatar, path)
-	if err != nil {
-		c.HTML(http.StatusOK, "errors/error.html", gin.H{
-			"message": err.Error(),
-		})
-		return
-	}
-	err = user.UpdateProfile(path, nickName)
-	if err != nil {
-		c.HTML(http.StatusOK, "errors/error.html", gin.H{
-			"message": err.Error(),
-		})
-		return
+	if avatar != nil {
+		path := "static/avatar"
+		path = filepath.Join(path, user.Email)
+		err = os.MkdirAll(path, os.ModePerm)
+		if err != nil {
+			c.HTML(http.StatusOK, "errors/error.html", gin.H{
+				"message": err.Error(),
+			})
+			return
+		}
+		fileName := strconv.FormatInt(time.Now().Unix(), 10) + avatar.Filename
+		path = filepath.Join(path, fileName)
+		err = c.SaveUploadedFile(avatar, path)
+		if err != nil {
+			c.HTML(http.StatusOK, "errors/error.html", gin.H{
+				"message": err.Error(),
+			})
+			return
+		}
+		err = user.UpdateProfile(path, nickName)
+		if err != nil {
+			c.HTML(http.StatusOK, "errors/error.html", gin.H{
+				"message": err.Error(),
+			})
+			return
+		}
+	} else {
+		err = user.UpdateProfile("", nickName)
 	}
 	c.Redirect(http.StatusMovedPermanently, "/profile")
 }

@@ -141,15 +141,15 @@
                     <!-- Comment -->
                     {{range .post.Comments}}
                         <div class="media">
-                            <a class="pull-left" href="{{.GithubUrl}}" target="_blank">
+                            <a class="pull-left" href="#" target="_blank">
                                 {{if .AvatarPath}}
-                                    <img class="user-image" src="{{.AvatarPath}}" alt="">
+                                    <img class="user-image" src="/{{.AvatarPath}}" alt="">
                                 {{else}}
                                     <img class="user-image" src="http://placehold.it/64x64" alt="">
                                 {{end}}
                             </a>
                             <div class="media-body">
-                                <h4 class="media-heading"><a href="{{.GithubUrl}}" target="_blank">{{.NickName}}</a>
+                                <h4 class="media-heading"><a href="" target="_blank">{{.NickName}}</a>
                                     <small>{{dateFormat .CreatedAt "06-01-02 15:04"}}</small>
                                 </h4>
                                 {{.Content}}
@@ -158,7 +158,7 @@
                     {{end}}
                 </comment>
 
-                <div class="media">
+                <div class="media" style="margin: 20px auto">
                     {{if not .user}}
                         <a href="/signin">登录发表评论</a>
                     {{else}}
@@ -177,7 +177,7 @@
                                     <img src="/captcha" class="j-verifycode"/>
                                 </div>
                             </div>
-                            <div class="pull-right">
+                            <div class="form-group">
                                 <button type="submit" class="btn btn-primary">评论</button>
                             </div>
                         </form>

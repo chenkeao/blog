@@ -70,7 +70,7 @@ type User struct {
 	GithubLoginId string    `gorm:"unique_index;default:null"` // github唯一标识
 	GithubUrl     string    //github地址
 	IsAdmin       bool      //是否是管理员
-	AvatarPath     string    // 头像链接
+	AvatarPath    string    // 头像链接
 	NickName      string    // 昵称
 	LockState     bool      `gorm:"default:'0'"` //锁定状态
 }
@@ -84,8 +84,9 @@ type BannerImage struct {
 
 type GameBoard struct {
 	BaseModel
-	Email string
-	Score int
+	Email  string
+	NickName string
+	Score  int
 }
 
 // table comments
@@ -96,9 +97,9 @@ type Comment struct {
 	PostID    uint   // 文章id
 	ReadState bool   `gorm:"default:'0'"` // 阅读状态
 	//Replies []*Comment // 评论
-	NickName  string `gorm:"-"`
+	NickName   string `gorm:"-"`
 	AvatarPath string `gorm:"-"`
-	GithubUrl string `gorm:"-"`
+	GithubUrl  string `gorm:"-"`
 }
 
 // table subscribe
@@ -544,6 +545,9 @@ func GetUser(id interface{}) (*User, error) {
 }
 
 func (user *User) UpdateProfile(AvatarPath, nickName string) error {
+	if AvatarPath == "" {
+		return DB.Model(user).Update(User{NickName: nickName}).Error
+	}
 	return DB.Model(user).Update(User{AvatarPath: AvatarPath, NickName: nickName}).Error
 }
 
@@ -564,7 +568,7 @@ func (user *User) UpdateGithubUserInfo() error {
 	}
 	return DB.Model(user).Update(map[string]interface{}{
 		"github_login_id": githubLoginId,
-		"avatar_url":      user.AvatarPath,
+		"avatar_path":     user.AvatarPath,
 		"github_url":      user.GithubUrl,
 	}).Error
 }
@@ -650,7 +654,7 @@ func ListCommentByPostID(postId string) ([]*Comment, error) {
 		return nil, err
 	}
 	var comments []*Comment
-	rows, err := DB.Raw("select c.*,u.github_login_id nick_name,u.avatar_url,u.github_url from comments c inner join users u on c.user_id = u.id where c.post_id = ? order by created_at desc", uint(pid)).Rows()
+	rows, err := DB.Raw("select c.*,u.github_login_id,u.nick_name,u.avatar_path,u.github_url from comments c inner join users u on c.user_id = u.id where c.post_id = ? order by created_at desc", uint(pid)).Rows()
 	if err != nil {
 		return nil, err
 	}
