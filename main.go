@@ -69,21 +69,27 @@ func main() {
 	//Periodic tasks
 	//gocron.Every(1).Day().Do(controllers.CreateXMLSitemap)
 	//gocron.Every(7).Days().Do(controllers.Backup)
-	//gocron.Start()
+	   //gocron.Start()
 
-	router.Static("/static", filepath.Join(getCurrentDirectory(), "./static"))
+   	router.Static("/static", filepath.Join(getCurrentDirectory(), "./static"))
 	//router.StaticFS("/banner", http.Dir(controllers.RootPath()+"banner/"))
 
-	router.NoRoute(controllers.Handle404)
-
+	   router.NoRoute(controllers.Handle404)
+  
 	router.GET("/", controllers.IndexGet)
-	router.GET("/index", controllers.IndexGet)
-	router.GET("/rss", controllers.RssGet)
+router.GET("/index", controllers.IndexGet)
+router.GET("/rss", controllers.RssGet)
 	router.GET("/about",controllers.AboutGet)
 
+
+
+
 	if system.GetConfiguration().SignupEnabled {
-		router.GET("/signup", controllers.SignupGet)
-		router.POST("/signup", controllers.SignupPost)
+
+
+
+	         	router.GET("/signup", controllers.SignupGet)
+		   router.POST("/signup", controllers.SignupPost)
 	}
 
 	router.GET("/signin", controllers.Login)

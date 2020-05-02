@@ -1,29 +1,28 @@
 {{define "admin/subscriber.html"}}
-    <!DOCTYPE html>
-    <html>
+<!DOCTYPE html>
+<html>
 
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Wblog - Post</title>
-        <!-- Tell the browser to be responsive to screen width -->
-        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-        <!-- Font Awesome -->
-        <link rel="stylesheet" href="/static/libs/admin-lte/plugins/fontawesome-free/css/all.min.css">
-        <!-- Ionicons -->
-        <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-        <!-- DataTables -->
-        <link rel="shortcut icon" href="/static/favicon.ico">
-        <link rel="stylesheet" href="/static/libs/admin-lte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
-        <link rel="stylesheet"
-              href="/static/libs/admin-lte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
-        <!-- Theme style -->
-        <link rel="stylesheet" href="/static/libs/admin-lte/dist/css/adminlte.min.css">
-        <!-- Google Font: Source Sans Pro -->
-        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-    </head>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Wblog - Post</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="/static/libs/admin-lte/plugins/fontawesome-free/css/all.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="/static/libs/admin-lte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet"
+        href="/static/libs/admin-lte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/static/libs/admin-lte/dist/css/adminlte.min.css">
+    <!-- Google Font: Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+</head>
 
-    <body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
 
         {{template "admin/navbar.html" .}}
@@ -37,7 +36,7 @@
                             <h1 class="m-0 text-dark">
                                 订阅管理
                                 <a class="btn btn-primary" href="javascript:void(0);" data-href="/admin/new_batchmail"
-                                   data-toggle="modal" data-target="#confirm-delete">群发</a>
+                                    data-toggle="modal" data-target="#confirm-delete">群发</a>
                             </h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
@@ -62,17 +61,17 @@
                             <div class="card-body">
                                 <table id="example2" class="table table-bordered table-hover">
                                     <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>邮箱</th>
-                                        <th>激活状态</th>
-                                        <th>订阅状态</th>
-                                        <th>订阅时间</th>
-                                        <th>操作</th>
-                                    </tr>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>邮箱</th>
+                                            <th>激活状态</th>
+                                            <th>订阅状态</th>
+                                            <th>订阅时间</th>
+                                            <th>操作</th>
+                                        </tr>
                                     </thead>
-                                    <tbody class="text-center">
-                                    {{range .subscribers}}
+                                    <tbody>
+                                        {{range .subscribers}}
                                         <tr>
                                             <td>{{.ID}}</td>
                                             <td>{{.Email}}</td>
@@ -86,22 +85,16 @@
                                             <td>{{dateFormat .CreatedAt "06-01-02 15:04"}}</td>
                                             <td>
                                                 {{if .VerifyState}}
-
-                                                    {{if .SubscribeState}}
-                                                        <a href="javascript:void(0);" class="btn btn-primary btnsend"
-                                                           data-href="/admin/new_mail?userId={{.ID}}"
-                                                           data-toggle="modal"
-                                                           data-target="#confirm-delete">发邮件</a>
-                                                    {{else}}
-                                                        用户未订阅
-                                                    {{end}}
-                                                {{else}}
-                                                    用户邮箱未验证
+                                                {{if .SubscribeState}}
+                                                <a href="javascript:void(0);" class="btn btn-primary btnsend"
+                                                    data-href="/admin/new_mail?userId={{.ID}}" data-toggle="modal"
+                                                    data-target="#confirm-delete">发邮件</a>
+                                                {{end}}
                                                 {{end}}
                                             </td>
                                         </tr>
-                                    {{end}}
-                                    </tfoot>
+                                        {{end}}
+                                        </tfoot>
                                 </table>
                             </div>
                             <!-- /.box-body -->
@@ -120,7 +113,7 @@
     <!-- ./wrapper -->
 
     <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-         aria-hidden="true">
+        aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -189,7 +182,7 @@
                     return;
                 }
 
-                $.post($(e.relatedTarget).data('href'), {subject: subject, content: content}, function (result) {
+                $.post($(e.relatedTarget).data('href'), { subject: subject, content: content }, function (result) {
                     console.log(result);
                     if (result.succeed) {
                         alert("发送成功");
@@ -202,7 +195,7 @@
         });
 
     </script>
-    </body>
+</body>
 
-    </html>
+</html>
 {{end}}

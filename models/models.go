@@ -84,9 +84,9 @@ type BannerImage struct {
 
 type GameBoard struct {
 	BaseModel
-	Email  string
+	Email    string
 	NickName string
-	Score  int
+	Score    int
 }
 
 // table comments
@@ -146,8 +146,6 @@ type SmmsFile struct {
 var DB *gorm.DB
 
 func InitDB() (*gorm.DB, error) {
-
-	//db, err := gorm.Open("sqlite3", system.GetConfiguration().DSN)
 	var (
 		dbUser     = system.GetConfiguration().DbUser
 		dbPassword = system.GetConfiguration().DbPassword
@@ -548,6 +546,7 @@ func (user *User) UpdateProfile(AvatarPath, nickName string) error {
 	if AvatarPath == "" {
 		return DB.Model(user).Update(User{NickName: nickName}).Error
 	}
+	AvatarPath = strings.ReplaceAll(AvatarPath, "\\", "/")
 	return DB.Model(user).Update(User{AvatarPath: AvatarPath, NickName: nickName}).Error
 }
 

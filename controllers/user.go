@@ -69,13 +69,13 @@ func SignupPost(c *gin.Context) {
 	)
 	defer writeJSON(c, res)
 	email := c.PostForm("email")
-	telephone := c.PostForm("telephone")
+	nickname := c.PostForm("nickname")
 	password := c.PostForm("password")
 	user := &models.User{
-		Email:     email,
-		Telephone: telephone,
-		Password:  password,
-		IsAdmin:   true,
+		Email:    email,
+		NickName: nickname,
+		Password: password,
+		IsAdmin:  true,
 	}
 	if len(user.Email) == 0 || len(user.Password) == 0 {
 		res["message"] = "邮箱和密码不能为空"
@@ -95,16 +95,16 @@ func SigninPost(c *gin.Context) {
 		err  error
 		user *models.User
 	)
-	username := c.PostForm("username")
+	email := c.PostForm("email")
 	password := c.PostForm("password")
-	if username == "" || password == "" {
+	if email == "" || password == "" {
 		c.HTML(http.StatusOK, "auth/signin.html", gin.H{
 			"message": "用户名和密码不能为空",
 		})
 		return
 	}
-	user, err = models.GetUserByUsername(username)
-	if err != nil || user.Password != helpers.Md5(username+password) {
+	user, err = models.GetUserByUsername(email)
+	if err != nil || user.Password != helpers.Md5(email+password) {
 		c.HTML(http.StatusOK, "auth/signin.html", gin.H{
 			"message": "用户名或密码无效",
 		})
