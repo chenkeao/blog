@@ -18,10 +18,10 @@ import (
 	"github.com/cihub/seelog"
 	_ "github.com/claudiu/gocron"
 
-	"wblog/controllers"
-	"wblog/helpers"
-	"wblog/models"
-	"wblog/system"
+	"blog/controllers"
+	"blog/helpers"
+	"blog/models"
+	"blog/system"
 
 	"github.com/gin-gonic/gin"
 )
@@ -69,31 +69,29 @@ func main() {
 	//Periodic tasks
 	//gocron.Every(1).Day().Do(controllers.CreateXMLSitemap)
 	//gocron.Every(7).Days().Do(controllers.Backup)
-	   //gocron.Start()
+	//gocron.Start()
 
-   	router.Static("/static", filepath.Join(getCurrentDirectory(), "./static"))
+	router.Static("/static", filepath.Join(getCurrentDirectory(), "./static"))
 	//router.StaticFS("/banner", http.Dir(controllers.RootPath()+"banner/"))
 
-	   router.NoRoute(controllers.Handle404)
-  
+	router.NoRoute(controllers.Handle404)
+
 	router.GET("/", controllers.IndexGet)
-router.GET("/index", controllers.IndexGet)
-router.GET("/rss", controllers.RssGet)
-	router.GET("/about",controllers.AboutGet)
-
-
-
+	router.GET("/index", controllers.IndexGet)
+	router.GET("/rss", controllers.RssGet)
+	router.GET("/about", controllers.AboutGet)
 
 	if system.GetConfiguration().SignupEnabled {
-
-
-
-	         	router.GET("/signup", controllers.SignupGet)
-		   router.POST("/signup", controllers.SignupPost)
+		router.GET("/signup", controllers.SignupGet)
+		router.POST("/signup", controllers.SignupPost)
 	}
 
 	router.GET("/signin", controllers.Login)
 	router.POST("/signin", controllers.SigninPost)
+	router.GET("/forgot_password", func(context *gin.Context) {
+		context.HTML(http.StatusOK, "auth/forgot_password.html", nil)
+	})
+	router.POST("/forgot_password", controllers.ForgotPassword)
 	router.GET("/logout", controllers.LogoutGet)
 
 	router.GET("/captcha", controllers.CaptchaGet)
@@ -265,7 +263,6 @@ func AdminScopeRequired() gin.HandlerFunc {
 		c.Abort()
 	}
 }
-
 
 //AuthRequired 中间件
 func AuthRequired() gin.HandlerFunc {

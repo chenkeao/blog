@@ -8,7 +8,7 @@ import (
 	"strings"
 	"time"
 
-	"wblog/system"
+	"blog/system"
 
 	"github.com/jinzhu/gorm"
 	//_ "github.com/mattn/go-sqlite3"

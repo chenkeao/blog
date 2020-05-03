@@ -12,7 +12,7 @@ import (
 	"os"
 	"strings"
 	"time"
-	"wblog/system"
+	"blog/system"
 
 	"github.com/jordan-wright/email"
 	"github.com/pkg/errors"

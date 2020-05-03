@@ -6,8 +6,8 @@ import (
 
 	"math"
 
-	"wblog/models"
-	"wblog/system"
+	"blog/models"
+	"blog/system"
 
 	"github.com/gin-gonic/gin"
 	"github.com/microcosm-cc/bluemonday"

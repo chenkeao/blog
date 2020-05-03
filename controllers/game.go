@@ -4,7 +4,7 @@ import (
 	"log"
 	"net/http"
 	"strconv"
-	"wblog/models"
+	"blog/models"
 
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"

@@ -7,8 +7,8 @@ import (
 	"strconv"
 	"time"
 
-	"wblog/helpers"
-	"wblog/models"
+	"blog/helpers"
+	"blog/models"
 
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
@@ -271,4 +271,7 @@ func UserLock(c *gin.Context) {
 		return
 	}
 	res["succeed"] = true
+}
+func ForgotPassword(ctx *gin.Context) {
+
 }

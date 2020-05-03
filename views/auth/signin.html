@@ -5,6 +5,7 @@
     <head>
         <meta charset="UTF-8">
         <title>用户登录</title>
+        <link rel="shortcut icon" href="/static/favicon.ico">
         <link rel="stylesheet" href="/static/libs/admin-lte/plugins/fontawesome-free/css/all.min.css">
         <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
         <link rel="stylesheet" href="/static/libs/iCheck/all.css">
@@ -59,16 +60,28 @@
                     </div>
                 </form>
 
-                <p class="mb-1">
-                    <a href="#">我忘记了密码</a>
-                </p>
-                <p class="mb-0">
-                    <a href="/signup" class="text-center">注册新用户</a>
-                </p>
+                <div class="row">
+                    <div class="col-8">
+                        <p class="mb-0">
+                            <a href="/forgot_password">我忘记了密码</a>
+                        </p>
+                        <p class="mb-0">
+                            <a href="/signup" class="text-center">注册新用户</a>
+                        </p>
+                    </div>
+                    <div class="col-4">
+                        <p></p>
+                        <p class="mb-0">
+                            <a href="/" class="text-center">返回首页</a>
+                        </p>
+                    </div>
+
+                </div>
             </div>
-            <!-- /.login-card-body -->
         </div>
+        <!-- /.login-card-body -->
     </div>
+
     <!-- /.login-box -->
 
     <script src="/static/libs/jquery/jquery.min.js"></script>
