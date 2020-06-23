@@ -8,8 +8,8 @@ session_secret: blog
 domain: http://127.0.0.1:8090
 public: static
 addr: :8090
-db_user: root
-db_password:
+db_user: momo
+db_password: 056613
 db_name: blog
 db_host: localhost
 db_port: 3306

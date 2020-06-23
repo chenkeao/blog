@@ -1,22 +1,22 @@
 {{define "index/index.html"}}
-    <!DOCTYPE html>
-    <html lang="zh-CN">
+<!DOCTYPE html>
+<html lang="zh-CN">
 
-    <head>
+<head>
 
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Blog</title>
-        <link rel="stylesheet" href="/static/libs/bootstrap/css/bootstrap.min.css">
-        <link rel="stylesheet" href="/static/css/blog-home.css">
-        <link rel="stylesheet" href="/static/css/base.css">
-        <link rel="shortcut icon" href="/static/favicon.ico">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Blog</title>
+    <link rel="stylesheet" href="/static/libs/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/blog-home.css">
+    <link rel="stylesheet" href="/static/css/base.css">
+    <link rel="shortcut icon" href="/static/favicon.ico">
 
-    </head>
+</head>
 
 
-    <body>
+<body>
 
     {{template "navigation.html" .}}
 
@@ -26,9 +26,9 @@
                 <div id="mCarousel" class="carousel slide" data-ride="carousel">
                     <ol class="carousel-indicators">
                         {{ range $k,$v := .images}} {{if eq $k 0}}
-                            <li data-target="#mCarousel" data-slide-to="0" class="active"></li>
+                        <li data-target="#mCarousel" data-slide-to="0" class="active"></li>
                         {{else}}
-                            <li data-target="#mCarousel" data-slide-to={{$k}}></li>
+                        <li data-target="#mCarousel" data-slide-to={{$k}}></li>
                         {{end}} {{end}}
                     </ol>
                     <div class="carousel-inner" role="listbox">
@@ -36,12 +36,10 @@
                         <div class="carousel-item active">
                             {{else}}
                             <div class="carousel-item">
-                                {{end}}
-                                {{if $v.Url}}
-                                    <a href="{{$v.Url}}" target="_blank"><img src={{$v.Path}}></a>
+                                {{end}} {{if $v.Url}}
+                                <a href="{{$v.Url}}" target="_blank"><img src={{$v.Path}}></a>
                                 {{else}}
-                                    <img src={{$v.Path}}>
-                                {{end}}
+                                <img src={{$v.Path}}> {{end}}
                                 <div class="carousel-caption d-none d-md-block">
                                     <h3>{{$v.Description}}</h3>
                                 </div>
@@ -64,7 +62,7 @@
                 <div class="col-md-8">
                     <div class="article">
                         {{range $postkey,$postvalue:=.posts}}
-                            <div class="articleInfo">
+                        <div class="articleInfo">
                             <span><a class="articleTitle" href="/post/{{$postvalue.ID}}">
                                     {{$length := len $postvalue.Title}}
                                     {{if ge $length 40}}
@@ -73,42 +71,41 @@
                                         {{$postvalue.Title}}
                                     {{end}}
                                 </a></span>
-                                <span class="createdTime" style="margin-right: 10px;">
+                            <span class="createdTime" style="margin-right: 10px;">
                                 {{dateFormat $postvalue.CreatedAt "06-01-02 15:04"}}
                             </span>
-                            </div>
-                            <div class="articleBody">
-                                {{$length = len $postvalue.Body}} {{if ge $length 100}} {{truncate $postvalue.Body 100}}... {{else}} {{$postvalue.Body}} {{end}}
-                            </div>
-                            <!-- article tags -->
-                            <div style="margin-top: 10px">
-                                <tr>
-                                    {{range $tagkey,$tagvalue:=$postvalue.Tags}}
-                                        <a href="/tag/{{$tagvalue.ID}}" class="changeTag"
-                                           style="color: #888888;text-decoration: none;">
+                        </div>
+                        <div class="articleBody">
+                            {{$length = len $postvalue.Body}} {{if ge $length 100}} {{truncate $postvalue.Body 100}}... {{else}} {{$postvalue.Body}} {{end}}
+                        </div>
+                        <!-- article tags -->
+                        <div style="margin-top: 10px">
+                            <tr>
+                                {{range $tagkey,$tagvalue:=$postvalue.Tags}}
+                                <a href="/tag/{{$tagvalue.ID}}" class="changeTag" style="color: #888888;text-decoration: none;">
                                             # <span>{{$tagvalue.Name}}</span>&nbsp;&nbsp;
                                         </a> {{end}}
-                                </tr>
-                            </div>
-                            <hr> {{end}}
+                            </tr>
+                        </div>
+                        {{end}}
                     </div>
 
                     {{if le .pageIndex .totalPage}}
-                        <ul class="pagination justify-content-center">
-                            {{if le .pageIndex 1}}
-                                <li class="disabled page-item"><a class="page-link" href="#">上一页</a></li>
-                            {{else}}
-                                <li class="page-item"><a class="page-link" href="{{.path}}?page={{minus .pageIndex 1}}">上一页</a>
-                                </li>
-                            {{end}}
-                            <li class="page-item">{{ .pageIndex }}/ {{ .totalPage }}</li>
-                            {{if lt .pageIndex .totalPage }}
-                                <li class="page-item"><a class="page-link" href="{{.path}}?page={{add .pageIndex 1}}">下一页</a>
-                                </li>
-                            {{ else}}
-                                <li class="page-item disabled"><a class="page-link" href="#">下一页</a></li>
-                            {{end}}
-                        </ul>
+                    <ul class="pagination justify-content-center">
+                        {{if le .pageIndex 1}}
+                        <li class="disabled page-item"><a class="page-link" href="#">上一页</a></li>
+                        {{else}}
+                        <li class="page-item"><a class="page-link" href="{{.path}}?page={{minus .pageIndex 1}}">上一页</a>
+                        </li>
+                        {{end}}
+                        <li class="page-item">{{ .pageIndex }}/ {{ .totalPage }}</li>
+                        {{if lt .pageIndex .totalPage }}
+                        <li class="page-item"><a class="page-link" href="{{.path}}?page={{add .pageIndex 1}}">下一页</a>
+                        </li>
+                        {{ else}}
+                        <li class="page-item disabled"><a class="page-link" href="#">下一页</a></li>
+                        {{end}}
+                    </ul>
                     {{end}}
 
                 </div>
@@ -121,18 +118,18 @@
                             </div>
                             <ul class="list-group list-group-flush">
                                 {{range $tagkey,$tagvalue:=.tags}} {{if isEven $tagkey}}
-                                    <li class="list-group-item"><a href="/tag/{{$tagvalue.ID}}">{{$tagvalue.Name}}
+                                <li class="list-group-item"><a href="/tag/{{$tagvalue.ID}}">{{$tagvalue.Name}}
                                             ({{$tagvalue.Total}}
                                             )</a>
-                                    </li>
+                                </li>
                                 {{end}} {{end}}
                             </ul>
                             <ul class="list-group list-group-flush">
                                 {{range $tagkey,$tagvalue:=.tags}} {{if isOdd $tagkey}}
-                                    <li class="list-group-item"><a href="/tag/{{$tagvalue.ID}}">{{$tagvalue.Name}}
+                                <li class="list-group-item"><a href="/tag/{{$tagvalue.ID}}">{{$tagvalue.Name}}
                                             ({{$tagvalue.Total}}
                                             )</a>
-                                    </li>
+                                </li>
                                 {{end}} {{end}}
                             </ul>
                         </div>
@@ -143,18 +140,18 @@
                             </div>
                             <ul class="list-group list-group-flush">
                                 {{range $archivekey,$archivevalue:=.archives}} {{if isEven $archivekey}}
-                                    <li class="list-group-item">
-                                        <a href="/archives/{{$archivevalue.Year}}/{{$archivevalue.Month}}">{{dateFormat $archivevalue.ArchiveDate "2006年01月"}}
+                                <li class="list-group-item">
+                                    <a href="/archives/{{$archivevalue.Year}}/{{$archivevalue.Month}}">{{dateFormat $archivevalue.ArchiveDate "2006年01月"}}
                                             ({{$archivevalue.Total}})</a>
-                                    </li>
+                                </li>
                                 {{end}} {{end}}
                             </ul>
                             <ul class="list-group list-group-flush">
                                 {{range $archivekey,$archivevalue:=.archives}} {{if isOdd $archivekey}}
-                                    <li class="list-group-item">
-                                        <a href="/archives/{{$archivevalue.Year}}/{{$archivevalue.Month}}">{{dateFormat $archivevalue.ArchiveDate "2006年01月"}}
+                                <li class="list-group-item">
+                                    <a href="/archives/{{$archivevalue.Year}}/{{$archivevalue.Month}}">{{dateFormat $archivevalue.ArchiveDate "2006年01月"}}
                                             ({{$archivevalue.Total}})</a>
-                                    </li>
+                                </li>
                                 {{end}} {{end}}
                             </ul>
                         </div>
@@ -166,7 +163,7 @@
                             </div>
                             <ul class="list-group list-group-flush">
                                 {{range $key,$post:=.maxReadPosts}}
-                                    <li class="list-group-item"><a href="/post/{{$post.ID}}">{{$post.Title}}
+                                <li class="list-group-item"><a href="/post/{{$post.ID}}">{{$post.Title}}
                                             ({{$post.View}})</a></li>
                                 {{end}}
                             </ul>
@@ -179,9 +176,9 @@
                             </div>
                             <ul class="list-group list-group-flush">
                                 {{range $key,$post:=.maxCommentPosts}}
-                                    <li class="list-group-item"><a href="/post/{{$post.ID}}">{{$post.Title}}
+                                <li class="list-group-item"><a href="/post/{{$post.ID}}">{{$post.Title}}
                                             ({{$post.CommentTotal}})</a>
-                                    </li>
+                                </li>
                                 {{end}}
                             </ul>
                         </div>
@@ -192,9 +189,8 @@
                             </div>
                             <ul class="list-group list-group-flush">
                                 {{range .links}}
-                                    <li class="list-group-item"><a href="/link/{{.ID}}" target="_blank"
-                                                                   title="{{.Url}}">{{.Name}}</a>
-                                    </li>
+                                <li class="list-group-item"><a href="/link/{{.ID}}" target="_blank" title="{{.Url}}">{{.Name}}</a>
+                                </li>
                                 {{end}}
                             </ul>
                         </div>
@@ -208,7 +204,7 @@
 
         <script src="/static/libs/jquery/jquery.min.js"></script>
         <script src="/static/libs/bootstrap/js/bootstrap.min.js"></script>
-    </body>
+</body>
 
-    </html>
+</html>
 {{end}}

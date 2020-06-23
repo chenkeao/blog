@@ -48,7 +48,7 @@ type Post struct {
 type Tag struct {
 	BaseModel
 	Name  string // tag name
-	Total int    `gorm:"-"` // count of post
+	Total int    `gorm:"-"` // count of post-
 }
 
 // table post_tags
