@@ -66,13 +66,7 @@ func main() {
 	setSessions(router)
 	router.Use(SharedData())
 
-	//Periodic tasks
-	//gocron.Every(1).Day().Do(controllers.CreateXMLSitemap)
-	//gocron.Every(7).Days().Do(controllers.Backup)
-	//gocron.Start()
-
 	router.Static("/static", filepath.Join(getCurrentDirectory(), "./static"))
-	//router.StaticFS("/banner", http.Dir(controllers.RootPath()+"banner/"))
 
 	router.NoRoute(controllers.Handle404)
 
@@ -175,10 +169,6 @@ func main() {
 		authorized.POST("/comment/:id", controllers.CommentRead)
 		authorized.POST("/read_all", controllers.CommentReadAll)
 
-		//备份，暂时不需要
-		//authorized.POST("/backup", controllers.BackupPost)
-		//authorized.POST("/restore", controllers.RestorePost)
-
 		// mail
 		authorized.POST("/new_mail", controllers.SendMail)
 		authorized.POST("/new_batchmail", controllers.SendBatchMail)
@@ -213,21 +203,10 @@ func setTemplate(engine *gin.Engine) {
 //setSessions initializes sessions & csrf middlewares
 func setSessions(router *gin.Engine) {
 	config := system.GetConfiguration()
-	//https://github.com/gin-gonic/contrib/tree/master/sessions
 	store := cookie.NewStore([]byte(config.SessionSecret))
 	store.Options(sessions.Options{HttpOnly: true, MaxAge: 7 * 86400, Path: "/"}) //Also set Secure: true if using SSL, you should though
 	router.Use(sessions.Sessions("gin-session", store))
-	//https://github.com/utrack/gin-csrf
-	/*router.Use(csrf.Middleware(csrf.Options{
-		Secret: config.SessionSecret,
-		ErrorFunc: func(c *gin.Context) {
-			c.String(400, "CSRF token mismatch")
-			c.Abort()
-		},
-	}))*/
 }
-
-//+++++++++++++ middlewares +++++++++++++++++++++++
 
 //SharedData fills in common data, such as user info, etc...
 func SharedData() gin.HandlerFunc {
@@ -288,7 +267,3 @@ func getCurrentDirectory() string {
 	}
 	return strings.Replace(dir, "\\", "/", -1)
 }
-
-//func getCurrentDirectory() string {
-//	return ""
-//}

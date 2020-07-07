@@ -23,6 +23,9 @@ SET time_zone = "+00:00";
 --
 
 -- --------------------------------------------------------
+Drop Database if exists `blog`;
+Create Database `blog`;
+Use blog;
 
 --
 -- 表的结构 `banner_images`
