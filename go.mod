@@ -1,4 +1,4 @@
-module blog
+module github.com/chenkeao/blog
 
 go 1.14
 

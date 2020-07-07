@@ -12,7 +12,7 @@ import (
 	"os"
 	"strings"
 	"time"
-	"blog/system"
+	"github.com/chenkeao/blog/system"
 
 	"github.com/jordan-wright/email"
 	"github.com/pkg/errors"

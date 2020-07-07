@@ -18,10 +18,10 @@ import (
 	"github.com/cihub/seelog"
 	_ "github.com/claudiu/gocron"
 
-	"blog/controllers"
-	"blog/helpers"
-	"blog/models"
-	"blog/system"
+	"github.com/chenkeao/blog/controllers"
+	"github.com/chenkeao/blog/helpers"
+	"github.com/chenkeao/blog/models"
+	"github.com/chenkeao/blog/system"
 
 	"github.com/gin-gonic/gin"
 )

@@ -8,11 +8,12 @@ import (
 
 	"strings"
 
+	"github.com/chenkeao/blog/helpers"
+	"github.com/chenkeao/blog/models"
+	"github.com/chenkeao/blog/system"
+
 	"github.com/denisbakhtin/sitemap"
 	"github.com/gin-gonic/gin"
-	"blog/helpers"
-	"blog/models"
-	"blog/system"
 )
 
 const (

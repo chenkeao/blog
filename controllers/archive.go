@@ -6,11 +6,12 @@ import (
 
 	"math"
 
+	"github.com/chenkeao/blog/models"
+	"github.com/chenkeao/blog/system"
+
 	"github.com/gin-gonic/gin"
 	"github.com/microcosm-cc/bluemonday"
 	"github.com/russross/blackfriday"
-	"blog/models"
-	"blog/system"
 )
 
 func ArchiveGet(c *gin.Context) {

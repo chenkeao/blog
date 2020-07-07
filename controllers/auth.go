@@ -3,9 +3,10 @@ package controllers
 import (
 	"net/http"
 
+	"github.com/chenkeao/blog/helpers"
+
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
-	"blog/helpers"
 )
 
 func AuthGet(c *gin.Context) {

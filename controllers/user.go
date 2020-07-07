@@ -7,8 +7,8 @@ import (
 	"strconv"
 	"time"
 
-	"blog/helpers"
-	"blog/models"
+	"github.com/chenkeao/blog/helpers"
+	"github.com/chenkeao/blog/models"
 
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
