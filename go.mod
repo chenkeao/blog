@@ -19,4 +19,6 @@ require (
 	github.com/pkg/errors v0.9.1
 	github.com/russross/blackfriday v1.5.2
 	github.com/snluu/uuid v0.0.0-20130306162636-1dd34a9ad6c0
+	golang.org/x/lint v0.0.0-20201208152925-83fdc39ff7b5 // indirect
+	golang.org/x/tools v0.1.0 // indirect
 )
